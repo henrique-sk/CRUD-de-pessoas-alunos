@@ -1,19 +1,36 @@
 package model;
 
-public class Pessoa {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import util.Contador;
+import util.Data;
+
+public class Pessoa implements Banco{
 	
+	SimpleDateFormat sdf;
+	public Integer id;
 	public String nome;
 	public int telefone;
-	public int dataNascimento;
-	public int dataCadastro;
-	public int dataAlteracao;
+	public Date dataNascimento;
+	public Date dataCadastro;
+	public Date dataAlteracao;
 	
-	public Pessoa(String nome, int telefone, int dataNascimento, int dataCadastro, int dataAlteracao) {
+	public Pessoa(String nome, int telefone, String dataNascimento, String dataCadastro, String dataAlteracao) {
+		this.id = Contador.proximoId();
 		this.nome = nome;
 		this.telefone = telefone;
-		this.dataNascimento = dataNascimento;
-		this.dataCadastro = dataCadastro;
-		this.dataAlteracao = dataAlteracao;
+		this.dataNascimento = Data.stringParaData(dataNascimento);
+		this.dataCadastro = Data.stringParaData(dataCadastro);
+		this.dataAlteracao = Data.stringParaData(dataAlteracao);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -32,36 +49,34 @@ public class Pessoa {
 		this.telefone = telefone;
 	}
 
-	public int getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(int dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public int getDataCadastro() {
+	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(int dataCadastro) {
+	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public int getDataAlteracao() {
+	public Date getDataAlteracao() {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(int dataAlteracao) {
+	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
 
 	@Override
 	public String toString() {
-		return "Pessoa [nome=" + nome + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento
+		return "Pessoa [ID=" + id + ", nome=" + nome + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento
 				+ ", dataCadastro=" + dataCadastro + ", dataAlteracao=" + dataAlteracao + "]";
 	}
-	
-	
 	
 }
