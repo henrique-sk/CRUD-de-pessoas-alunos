@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 import util.Data;
 
 public class Aluno extends Pessoa {
@@ -7,12 +9,10 @@ public class Aluno extends Pessoa {
 	public double notaFinal;
 
 	public Aluno(String nome, String telefone, String dataNascimento, double notaFinal) {
-		super(nome, telefone, dataNascimento
-//				, dataCadastro, dataAlteracao
-				);
+		super(nome, telefone, dataNascimento);
 		this.notaFinal = notaFinal;
-		this.dataCadastro = Data.stringParaData("01/01/2020");
-		this.dataAlteracao = Data.stringParaData("01/01/2020");
+		this.dataCadastro = null;
+		this.dataAlteracao = null;
 	}
 
 	public double getNotaFinal() {

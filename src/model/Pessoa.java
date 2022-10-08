@@ -21,8 +21,8 @@ public class Pessoa implements Banco{
 		this.nome = nome;
 		this.telefone = Long.parseLong(telefone);
 		this.dataNascimento = Data.stringParaData(dataNascimento);
-		this.dataCadastro = Data.stringParaData("01/01/2020");
-		this.dataAlteracao = Data.stringParaData("01/01/2020");
+		this.dataCadastro = null;
+		this.dataAlteracao = null;
 	}
 
 	public Integer getId() {

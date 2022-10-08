@@ -1,5 +1,7 @@
 package service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,6 +11,8 @@ import repository.Repository;
 
 public class Service {
 	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	Date hoje = new Date();
 	Scanner sc;
 	Repository<Pessoa> repository = new Repository<>();
 	
@@ -32,13 +36,14 @@ public class Service {
 		System.out.println("Digite a nota final do curso (ou 'N' para concluir o cadastro): ");			
 		String notaFinal = sc.nextLine();
 		
+		Pessoa pessoa;
 		if(notaFinal.equals("N")) {
-			Pessoa pessoa = new Pessoa(nome, telefone, dataNascimento);
-			this.repository.salvar(pessoa);
+			pessoa = new Pessoa(nome, telefone, dataNascimento);
 		} else {			
-			Aluno aluno = new Aluno(nome, telefone, dataNascimento, Double.parseDouble(notaFinal));
-			this.repository.salvar(aluno);
-		}
+			pessoa = new Aluno(nome, telefone, dataNascimento, Double.parseDouble(notaFinal));
+		}		
+		this.repository.salvar(pessoa);
+		pessoa.setDataCadastro(hoje);
 		
 		System.out.println("Cadastrado realizado com sucesso!");
 	}

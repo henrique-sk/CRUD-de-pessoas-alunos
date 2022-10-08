@@ -1,6 +1,3 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.Scanner;
 
 import service.Service;
@@ -8,10 +5,9 @@ import util.Menu;
 
 public class Main {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 
-		Locale.setDefault(new Locale("pt", "Brazil"));
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		Locale.setDefault(new Locale("pt", "Brazil"));
 		Scanner sc = new Scanner(System.in);
 
 		Service service = new Service(sc);
@@ -42,7 +38,7 @@ public class Main {
 
 				break;
 			case 0:
-
+				continua = false;
 				break;
 			}
 

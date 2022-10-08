@@ -1,8 +1,11 @@
 package util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import exception.SistemaException;
 
 public class Data {
 	
@@ -18,6 +21,13 @@ public class Data {
 		}
 		
 		return paraData;
+	}
+	
+	public static String dataParaString(Date data) throws SistemaException {
+		
+		String paraString = DateFormat.getInstance().format(data);
+		
+		return paraString;		
 	}
 
 }
