@@ -3,18 +3,18 @@ package util;
 public class Menu {
 	
 	private static final String cabecalho = ""
-			+ "--------------------------------------------\n"
+			+ "--------------------------------------------------------\n"
 			+ "Digite a opção desejada:\n";
 	
 	public static final void menuPrincipal() {
 		System.out.println(""
-				+ "============================================\n"
-				+ "Bem-vindo ao sistema de gerenciamento de pessoas/alunos\n"
+				+ "========================================================\n"
+				+ "Bem-vindo ao sistema de gerenciamento de pessoas/alunos:\n"
 				+ cabecalho
 				+ "1 - Criar pessoa/aluno\n"
 				+ "2 - Mostrar todas pessoas/alunos\n"
 				+ "3 - Atualizar dados de pessoas/alunos\n"
-				+ "4 - Deletar uma pessoa/aluno"
+				+ "4 - Deletar uma pessoa/aluno\n"
 				+ "0 - Encerrar programa");
 	}
 	
@@ -27,7 +27,7 @@ public class Menu {
 	
 	public static final void porID() {
 		System.out.println(""
-				+ "--------------------------------------------\n"
+				+ "--------------------------------------------------------\n"
 				+ "Digite o número correspondente a pessoa/aluno desejada:\n");
 	}
 

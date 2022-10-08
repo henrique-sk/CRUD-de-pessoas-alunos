@@ -16,13 +16,13 @@ public class Pessoa implements Banco{
 	public Date dataCadastro;
 	public Date dataAlteracao;
 	
-	public Pessoa(String nome, String telefone, String dataNascimento, String dataCadastro, String dataAlteracao) {
+	public Pessoa(String nome, String telefone, String dataNascimento) {
 		this.id = Contador.proximoId();
 		this.nome = nome;
 		this.telefone = Long.parseLong(telefone);
 		this.dataNascimento = Data.stringParaData(dataNascimento);
-		this.dataCadastro = Data.stringParaData(dataCadastro);
-		this.dataAlteracao = Data.stringParaData(dataAlteracao);
+		this.dataCadastro = Data.stringParaData("01/01/2020");
+		this.dataAlteracao = Data.stringParaData("01/01/2020");
 	}
 
 	public Integer getId() {
@@ -75,8 +75,12 @@ public class Pessoa implements Banco{
 
 	@Override
 	public String toString() {
-		return "Pessoa [ID=" + id + ", nome=" + nome + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento
-				+ ", dataCadastro=" + dataCadastro + ", dataAlteracao=" + dataAlteracao + "]";
+		return this.id
+				+ " - "	+ this.nome
+				+ " - Fone: "	+ this.telefone
+				+ " - Nasc: " + this.dataNascimento
+				+ " - Cadastro: " + this.dataCadastro
+				+ " - Última Alt.:" + this.dataAlteracao;
 	}
 	
 }

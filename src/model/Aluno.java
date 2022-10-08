@@ -1,12 +1,18 @@
 package model;
 
+import util.Data;
+
 public class Aluno extends Pessoa {
 	
 	public double notaFinal;
 
-	public Aluno(String nome, String telefone, String dataNascimento, String dataCadastro, String dataAlteracao, double notaFinal) {
-		super(nome, telefone, dataNascimento, dataCadastro, dataAlteracao);
+	public Aluno(String nome, String telefone, String dataNascimento, double notaFinal) {
+		super(nome, telefone, dataNascimento
+//				, dataCadastro, dataAlteracao
+				);
 		this.notaFinal = notaFinal;
+		this.dataCadastro = Data.stringParaData("01/01/2020");
+		this.dataAlteracao = Data.stringParaData("01/01/2020");
 	}
 
 	public double getNotaFinal() {
@@ -19,8 +25,13 @@ public class Aluno extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "Aluno [ID=" + id + ", nome=" + this.nome + ", telefone=" + this.telefone + ", dataNascimento=" + this.dataNascimento
-				+ ", dataCadastro=" + this.dataCadastro + ", dataAlteracao=" + this.dataAlteracao + ", notaFinal=" + this.notaFinal + "]";
+		return this.id
+				+ " - "	+ this.nome
+				+ " - Nota Final: " + this.notaFinal
+				+ " - Fone: "	+ this.telefone
+				+ " - Nasc: " + this.dataNascimento
+				+ " - Cadastro: " + this.dataCadastro
+				+ " - Última Alt.:" + this.dataAlteracao;
 	}
 	
 	
