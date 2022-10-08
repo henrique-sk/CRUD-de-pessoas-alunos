@@ -7,7 +7,7 @@ import java.util.Date;
 public class Data {
 	
 	public static Date stringParaData(String data) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");	
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
 		
 		Date paraData = null;
 		try {

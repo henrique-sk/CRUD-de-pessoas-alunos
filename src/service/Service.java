@@ -14,8 +14,11 @@ public class Service {
 	
 	public Service(Scanner sc) {
 		this.sc = sc;
-		this.repository.salvar(new Pessoa("PESSOA1", 987, "12/08/2020", "12/08/2020", "12/08/2020"));
-		this.repository.salvar(new Aluno("ALUNO1", 987, "12/08/2020", "12/08/2020", "12/08/2020", 8765));
+		this.repository.salvar(new Pessoa("Luana", "15777777777", "12/08/2020", "12/08/2020", "12/08/2020"));
+		this.repository.salvar(new Pessoa("Roberto", "21444444444", "12/08/2020", "12/08/2020", "12/08/2020"));
+		this.repository.salvar(new Aluno("Leonardo", "51888888888", "12/08/2020", "12/08/2020", "12/08/2020", 8.76));
+		this.repository.salvar(new Aluno("Tamires", "42333333333", "12/08/2020", "12/08/2020", "12/08/2020", 9.65));
+		this.repository.salvar(new Aluno("Lucas", "55222222222", "12/08/2020", "12/08/2020", "12/08/2020", 6));
 	}
 	
 	

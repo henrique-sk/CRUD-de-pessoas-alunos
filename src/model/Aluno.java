@@ -1,21 +1,19 @@
 package model;
 
-import java.util.Date;
-
 public class Aluno extends Pessoa {
 	
-	public int notaFinal;
+	public double notaFinal;
 
-	public Aluno(String nome, int telefone, String dataNascimento, String dataCadastro, String dataAlteracao, int notaFinal) {
+	public Aluno(String nome, String telefone, String dataNascimento, String dataCadastro, String dataAlteracao, double notaFinal) {
 		super(nome, telefone, dataNascimento, dataCadastro, dataAlteracao);
 		this.notaFinal = notaFinal;
 	}
 
-	public int getNotaFinal() {
+	public double getNotaFinal() {
 		return notaFinal;
 	}
 
-	public void setNotaFinal(int notaFinal) {
+	public void setNotaFinal(double notaFinal) {
 		this.notaFinal = notaFinal;
 	}
 
