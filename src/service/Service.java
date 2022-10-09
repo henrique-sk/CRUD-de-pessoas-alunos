@@ -1,13 +1,16 @@
 package service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import model.Aluno;
 import model.Pessoa;
 import repository.Repository;
+import util.Data;
 
 public class Service {
+	Date hoje = new Date();
 	Scanner sc;
 	Repository<Pessoa> repository = new Repository<>();
 	
@@ -50,7 +53,62 @@ public class Service {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
 		pessoas.stream().filter(pessoa -> pessoa instanceof Aluno)
-			.forEach(pessoa -> System.out.println(pessoa));
+			.forEach(aluno -> System.out.println(aluno));
 	}
-
+	
+	public String tipoPessoa(int id) {
+		List<Pessoa> pessoas = this.repository.buscarTodos();
+		String tipo = pessoas.stream().filter(pessoa -> pessoa.getId() == id)
+				.findFirst().get().getClass().getSimpleName();
+		
+		return tipo;
+	}
+	
+	public void atualizarDados(int id, String tipo) {		
+		Pessoa pessoa = this.repository.buscarPorId(id);
+		
+		boolean continua = true;
+		do {
+			System.out.println("Dados atuais da pessoa/aluno selecionada:\n"
+					+ pessoa + "\n"
+					+ "Qual dado deseja atualizar?\n"
+					+ "1 - Nome\n"
+					+ "2 - Telefone\n"
+					+ "3 - Data de nascimento");
+			if (tipo.equals("Aluno")) {
+				System.out.println("4 - Nota final do curso");
+			}
+			System.out.println("0 - Retornar ao Menu Principal");
+			
+			int entrada = sc.nextInt();
+			if(entrada == 1) {
+				System.out.println("Digite o nome: ");
+				sc.nextLine();
+				String nome = sc.nextLine();			
+				pessoa.setNome(nome);
+			}else if(entrada == 2) {
+				System.out.println("Digite o telefone com DDD.\n"
+						+ "Somente os 11 números (XXXXXXXXXXX): ");
+				sc.nextLine();
+				String telefone = sc.nextLine();
+				pessoa.setTelefone(Long.parseLong(telefone));
+			}else if(entrada == 3) {
+				System.out.println("Digite a data de nascimento (DD/MM/AAAA): ");
+				sc.nextLine();
+				String dataNascimento = sc.nextLine();	
+				pessoa.setDataNascimento(Data.stringParaData(dataNascimento));
+			}else if (tipo.equals("Aluno") && entrada == 4) {
+				System.out.println("Digite a nota final do curso: ");
+				sc.nextLine();
+				String notaFinal = sc.nextLine();
+				pessoa.setNotaFinal(Double.parseDouble(notaFinal));
+			}else if (entrada == 0) {	
+				continua = false;
+				break;
+			}
+			pessoa.setDataAlteracao(hoje);
+			System.out.println("Atualizado com sucesso!");
+		} while (continua == true);		
+	}
+	
 }

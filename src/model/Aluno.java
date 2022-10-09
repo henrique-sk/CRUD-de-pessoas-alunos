@@ -3,8 +3,6 @@ package model;
 import java.text.DateFormat;
 import java.util.Date;
 
-import util.Data;
-
 public class Aluno extends Pessoa {
 	
 	Date hoje = new Date();
@@ -34,8 +32,6 @@ public class Aluno extends Pessoa {
 				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
 				+ " - Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
 				+ " - Última Alt.:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
-	}
-	
-	
+	}	
 
 }

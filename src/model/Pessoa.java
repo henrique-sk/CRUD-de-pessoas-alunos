@@ -84,5 +84,9 @@ public class Pessoa implements Banco{
 				+ " - Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
 				+ " - Última Alt.:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
 	}
-	
+
+	public void setNotaFinal(double notaFinal) {
+		
+	}
+
 }
