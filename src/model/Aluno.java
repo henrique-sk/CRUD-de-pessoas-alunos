@@ -1,18 +1,20 @@
 package model;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 import util.Data;
 
 public class Aluno extends Pessoa {
 	
+	Date hoje = new Date();
 	public double notaFinal;
 
 	public Aluno(String nome, String telefone, String dataNascimento, double notaFinal) {
 		super(nome, telefone, dataNascimento);
 		this.notaFinal = notaFinal;
-		this.dataCadastro = null;
-		this.dataAlteracao = null;
+		this.dataCadastro = hoje;
+		this.dataAlteracao = hoje;
 	}
 
 	public double getNotaFinal() {
@@ -29,9 +31,9 @@ public class Aluno extends Pessoa {
 				+ " - "	+ this.nome
 				+ " - Nota Final: " + this.notaFinal
 				+ " - Fone: "	+ this.telefone
-				+ " - Nasc: " + this.dataNascimento
-				+ " - Cadastro: " + this.dataCadastro
-				+ " - Última Alt.:" + this.dataAlteracao;
+				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
+				+ " - Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
+				+ " - Última Alt.:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
 	}
 	
 	

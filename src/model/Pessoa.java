@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import util.Data;
 
 public class Pessoa implements Banco{
 	
+	Date hoje = new Date();
 	SimpleDateFormat sdf;
 	public Integer id;
 	public String nome;
@@ -21,8 +23,8 @@ public class Pessoa implements Banco{
 		this.nome = nome;
 		this.telefone = Long.parseLong(telefone);
 		this.dataNascimento = Data.stringParaData(dataNascimento);
-		this.dataCadastro = null;
-		this.dataAlteracao = null;
+		this.dataCadastro = hoje;
+		this.dataAlteracao = hoje;
 	}
 
 	public Integer getId() {
@@ -78,9 +80,9 @@ public class Pessoa implements Banco{
 		return this.id
 				+ " - "	+ this.nome
 				+ " - Fone: "	+ this.telefone
-				+ " - Nasc: " + this.dataNascimento
-				+ " - Cadastro: " + this.dataCadastro
-				+ " - Última Alt.:" + this.dataAlteracao;
+				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
+				+ " - Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
+				+ " - Última Alt.:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
 	}
 	
 }

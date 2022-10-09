@@ -1,7 +1,5 @@
 package service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,17 +8,12 @@ import model.Pessoa;
 import repository.Repository;
 
 public class Service {
-	
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	Date hoje = new Date();
 	Scanner sc;
 	Repository<Pessoa> repository = new Repository<>();
 	
 	public Service(Scanner sc) {
 		this.sc = sc;
 		this.repository.salvar(new Pessoa("Luana", "15777777777", "12/08/2020"));
-		this.repository.salvar(new Pessoa("Roberto", "21444444444", "12/08/2020"));
-		this.repository.salvar(new Aluno("Leonardo", "51888888888", "12/08/2020", 8.76));
 		this.repository.salvar(new Aluno("Tamires", "42333333333", "12/08/2020", 9.65));
 		this.repository.salvar(new Aluno("Lucas", "55222222222", "12/08/2020", 6));
 	}
@@ -43,7 +36,6 @@ public class Service {
 			pessoa = new Aluno(nome, telefone, dataNascimento, Double.parseDouble(notaFinal));
 		}		
 		this.repository.salvar(pessoa);
-		pessoa.setDataCadastro(hoje);
 		
 		System.out.println("Cadastrado realizado com sucesso!");
 	}
