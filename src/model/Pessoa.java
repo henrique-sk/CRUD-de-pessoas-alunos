@@ -13,7 +13,7 @@ public class Pessoa implements Banco{
 	SimpleDateFormat sdf;
 	public Integer id;
 	public String nome;
-	public long telefone;
+	public String telefone;
 	public Date dataNascimento;
 	public Date dataCadastro;
 	public Date dataAlteracao;
@@ -21,7 +21,7 @@ public class Pessoa implements Banco{
 	public Pessoa(String nome, String telefone, String dataNascimento) {
 		this.id = Contador.proximoId();
 		this.nome = nome;
-		this.telefone = Long.parseLong(telefone);
+		this.telefone = telefone;
 		this.dataNascimento = Data.stringParaData(dataNascimento);
 		this.dataCadastro = hoje;
 		this.dataAlteracao = hoje;
@@ -43,11 +43,11 @@ public class Pessoa implements Banco{
 		this.nome = nome;
 	}
 
-	public long getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(long telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import exception.SistemaException;
 import model.Aluno;
 import model.Pessoa;
 import repository.Repository;
@@ -26,14 +27,14 @@ public class Service {
 		String nome = sc.nextLine();		
 		System.out.println("Digite o telefone com DDD.\n"
 				+ "Somente os 11 números (XXXXXXXXXXX): ");
-		String telefone = sc.nextLine();		
+		String telefone = sc.nextLine().replaceFirst("0", "");		
 		System.out.println("Digite a data de nascimento (DD/MM/AAAA): ");
 		String dataNascimento = sc.nextLine();		
 		System.out.println("Digite a nota final do curso (ou 'N' para concluir o cadastro): ");			
 		String notaFinal = sc.nextLine();
 		
 		Pessoa pessoa;
-		if(notaFinal.equals("N")) {
+		if(notaFinal.toUpperCase().equals("N")) {
 			pessoa = new Pessoa(nome, telefone, dataNascimento);
 		} else {			
 			pessoa = new Aluno(nome, telefone, dataNascimento, Double.parseDouble(notaFinal));
@@ -44,12 +45,14 @@ public class Service {
 	}
 	
 	public void mostrarTodasPessoas() {
+		System.out.println("Listagem de todas pessoas:");
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
 		pessoas.stream().forEach(pessoa -> System.out.println(pessoa));
 	}
 	
 	public void mostrarTodosAlunos() {
+		System.out.println("Listagem de todos alunos:");
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
 		pessoas.stream().filter(pessoa -> pessoa instanceof Aluno)
@@ -90,12 +93,12 @@ public class Service {
 				System.out.println("Digite o telefone com DDD.\n"
 						+ "Somente os 11 números (XXXXXXXXXXX): ");
 				sc.nextLine();
-				String telefone = sc.nextLine();
-				pessoa.setTelefone(Long.parseLong(telefone));
+				String telefone = sc.nextLine().replaceFirst("0", "");
+				pessoa.setTelefone(telefone);
 			}else if(entrada == 3) {
 				System.out.println("Digite a data de nascimento (DD/MM/AAAA): ");
 				sc.nextLine();
-				String dataNascimento = sc.nextLine();	
+				String dataNascimento = sc.nextLine();
 				pessoa.setDataNascimento(Data.stringParaData(dataNascimento));
 			}else if (tipo.equals("Aluno") && entrada == 4) {
 				System.out.println("Digite a nota final do curso: ");
@@ -109,6 +112,17 @@ public class Service {
 			pessoa.setDataAlteracao(hoje);
 			System.out.println("Atualizado com sucesso!");
 		} while (continua == true);		
+	}
+
+	public void deletarPessoa(int opcao4) throws SistemaException {
+		Pessoa pessoa = repository.buscarPorId(opcao4);
+		
+		if(pessoa == null ) {
+			throw new SistemaException("Pessoa não encontrada!");
+		}		
+		repository.removerPorId(opcao4);
+		
+		System.out.println("Pessoa removida com sucesso!");		
 	}
 	
 }
