@@ -41,18 +41,38 @@ public class Service {
 				continua2 = true;
 				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
 			}	
-		}
-		System.out.println("Digite a nota final do curso (ou 'N' para concluir o cadastro): ");			
-		String notaFinal = sc.nextLine();
+		}		
 		
 		Pessoa pessoa;
+		boolean continua3 = true;
+		while (continua3 == true) {
+			System.out.println("Deseja inserir uma nota final do curso? S/N");
+			String temNota = sc.nextLine().toUpperCase();
+			if (temNota.equals("N")) {
+				pessoa = new Pessoa(nome, telefone, dataNascimento);
+				this.repository.salvar(pessoa);
+				continua3 = false;
+			} else if (temNota.equals("S")){
+				System.out.println("Qual a nota final do curso?");
+				Double notaFinal = sc.nextDouble();
+				pessoa = new Aluno(nome, telefone, dataNascimento, notaFinal);
+				this.repository.salvar(pessoa);
+				continua3 = false;
+			} 
+		}
+//		this.repository.salvar(pessoa);
 		
-		if(notaFinal.toUpperCase().equals("N")) {
-			pessoa = new Pessoa(nome, telefone, dataNascimento);
-		} else {			
-			pessoa = new Aluno(nome, telefone, dataNascimento, Double.parseDouble(notaFinal));
-		}		
-		this.repository.salvar(pessoa);
+//		System.out.println("Digite a nota final do curso (ou 'N' para concluir o cadastro): ");			
+//		String notaFinal = sc.nextLine();
+//		
+//		Pessoa pessoa;
+//		
+//		if(notaFinal.toUpperCase().equals("N")) {
+//			pessoa = new Pessoa(nome, telefone, dataNascimento);
+//		} else {			
+//			pessoa = new Aluno(nome, telefone, dataNascimento, Double.parseDouble(notaFinal));
+//		}		
+//		this.repository.salvar(pessoa);
 		
 		System.out.println("Cadastrado realizado com sucesso!");
 	}
