@@ -144,8 +144,8 @@ public class Service {
 			}else if (tipo.equals("Aluno") && entrada == 4) {
 				System.out.println("Digite a nota final do curso: ");
 				sc.nextLine();
-				String notaFinal = sc.nextLine();
-				pessoa.setNotaFinal(Double.parseDouble(notaFinal));
+				Double notaFinal = sc.nextDouble();
+				pessoa.setNotaFinal(notaFinal);
 			}else if (entrada == 0) {	
 				continua = false;
 				break;
