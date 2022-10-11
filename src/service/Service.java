@@ -26,13 +26,10 @@ public class Service {
 	
 	public void criarPessoaAluno() {
 		System.out.println("Digite o nome: ");
-		String nome = sc.nextLine();		
-		System.out.println("Digite o telefone com DDD.\n"
+		String nome = sc.nextLine();
+		System.out.println("Digite o telefone com DDD. "
 				+ "Somente os 11 números (XXXXXXXXXXX): ");
-		String fone = sc.nextLine();
-		String telefone = fone.replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");		
-		
-		
+		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");			
 		boolean continua2 = true;
 		Date dataNascimento = null;
 		while (continua2 == true) {
@@ -49,6 +46,7 @@ public class Service {
 		String notaFinal = sc.nextLine();
 		
 		Pessoa pessoa;
+		
 		if(notaFinal.toUpperCase().equals("N")) {
 			pessoa = new Pessoa(nome, telefone, dataNascimento);
 		} else {			
