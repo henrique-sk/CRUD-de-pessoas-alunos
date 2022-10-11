@@ -18,11 +18,11 @@ public class Pessoa implements Banco{
 	public Date dataCadastro;
 	public Date dataAlteracao;
 	
-	public Pessoa(String nome, String telefone, String dataNascimento) {
+	public Pessoa(String nome, String telefone, Date dataNascimento) {
 		this.id = Contador.proximoId();
 		this.nome = nome;
 		this.telefone = telefone;
-		this.dataNascimento = Data.stringParaData(dataNascimento);
+		this.dataNascimento = dataNascimento;
 		this.dataCadastro = hoje;
 		this.dataAlteracao = hoje;
 	}

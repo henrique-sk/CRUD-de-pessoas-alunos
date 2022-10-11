@@ -13,8 +13,7 @@ public class Data {
 		try {
 			paraData = sdf.parse(data);
 		} catch (ParseException e) {
-			System.out.println("Formato de data incompatível. ERRO -> "
-					+ e.getMessage());
+			System.out.println("Formato de data incompatível");
 		}
 		
 		return paraData;

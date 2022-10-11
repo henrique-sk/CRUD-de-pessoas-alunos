@@ -8,7 +8,7 @@ public class Aluno extends Pessoa {
 	Date hoje = new Date();
 	public double notaFinal;
 
-	public Aluno(String nome, String telefone, String dataNascimento, double notaFinal) {
+	public Aluno(String nome, String telefone, Date dataNascimento, double notaFinal) {
 		super(nome, telefone, dataNascimento);
 		this.notaFinal = notaFinal;
 		this.dataCadastro = hoje;
