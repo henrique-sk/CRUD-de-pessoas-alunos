@@ -24,24 +24,40 @@ public class Service {
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6));
 	}
 	
+	private Date recebeDataNascimento() {
+		Date dataNascimento = null;
+		boolean continua2 = true;
+		while (continua2 == true)
+			try {
+				dataNascimento = sdf.parse(sc.nextLine());
+				continua2 = false;
+			} catch (Exception e) {
+				continua2 = true;
+				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
+			}
+		return dataNascimento;
+	}
+	
 	public void criarPessoaAluno() {
 		System.out.println("Digite o nome: ");
 		String nome = sc.nextLine();
 		System.out.println("Digite o telefone com DDD. "
 				+ "Somente os 11 números (XXXXXXXXXXX): ");
-		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");			
-		boolean continua2 = true;
-		Date dataNascimento = null;
-		while (continua2 == true) {
-			String dataNascimentoString = sc.nextLine();
-			try {
-				dataNascimento = sdf.parse(dataNascimentoString);
-				continua2 = false;
-			} catch (Exception e) {
-				continua2 = true;
-				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
-			}	
-		}		
+		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
+		
+		Date dataNascimento = recebeDataNascimento();
+//		boolean continua2 = true;
+//		Date dataNascimento = null;
+//		while (continua2 == true) {
+//			String dataNascimentoString = sc.nextLine();
+//			try {
+//				dataNascimento = sdf.parse(dataNascimentoString);
+//				continua2 = false;
+//			} catch (Exception e) {
+//				continua2 = true;
+//				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
+//			}	
+//		}		
 		
 		Pessoa pessoa;
 		boolean continua3 = true;
@@ -127,20 +143,21 @@ public class Service {
 				sc.nextLine();
 				String telefone = sc.nextLine().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
 				pessoa.setTelefone(telefone);
-			}else if(entrada == 3) {				
-				boolean continua2 = true;
-				while (continua2 == true) {
-					String dataNascimento = sc.nextLine();
-					Date nascimento = null;
-					try {
-						nascimento = sdf.parse(dataNascimento);
-						continua2 = false;
-					} catch (Exception e) {
-						continua2 = true;
-						System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
-					}					
-					pessoa.setDataNascimento(nascimento);
-				}
+			}else if(entrada == 3) {
+				pessoa.setDataNascimento(recebeDataNascimento());
+//				boolean continua2 = true;
+//				while (continua2 == true) {
+//					String dataNascimento = sc.nextLine();
+//					Date nascimento = null;
+//					try {
+//						nascimento = sdf.parse(dataNascimento);
+//						continua2 = false;
+//					} catch (Exception e) {
+//						continua2 = true;
+//						System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
+//					}					
+//					pessoa.setDataNascimento(nascimento);
+//				}
 			}else if (tipo.equals("Aluno") && entrada == 4) {
 				System.out.println("Digite a nota final do curso: ");
 				sc.nextLine();
