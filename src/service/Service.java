@@ -22,31 +22,14 @@ public class Service {
 		this.repository.salvar(new Pessoa("Luana", "15777777777", Data.stringParaData("12/12/2002")));
 		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6));
-	}
-	
-	private Date recebeDataNascimento() {
-		Date dataNascimento = null;
-		boolean continua2 = true;
-		while (continua2 == true)
-			try {
-				dataNascimento = sdf.parse(sc.nextLine());
-				continua2 = false;
-			} catch (Exception e) {
-				continua2 = true;
-				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
-			}
-		return dataNascimento;
-	}
+	}	
 	
 	public void criarPessoaAluno() {
-		System.out.println("Digite o nome: ");
-		String nome = sc.nextLine();
+		String nome = recebeNome();
 		System.out.println("Digite o telefone com DDD. "
 				+ "Somente os 11 números (XXXXXXXXXXX): ");
-		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
-		
-		Date dataNascimento = recebeDataNascimento();
-		
+		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");		
+		Date dataNascimento = recebeDataNascimento();		
 		Pessoa pessoa = null;
 		boolean continua3 = true;
 		while (continua3 == true) {
@@ -63,10 +46,29 @@ public class Service {
 				this.repository.salvar(pessoa);
 				continua3 = false;
 			} 
-		}
-		
+		}		
 		System.out.println("\\/ Cadastro realizado com sucesso! \\/\n"
 				+ "Cadastro n° " + pessoa);
+	}
+	
+	private String recebeNome() {
+		System.out.println("Digite o nome: ");
+		String nome = sc.next();
+		return nome;
+	}
+	
+	private Date recebeDataNascimento() {
+		Date dataNascimento = null;
+		boolean continua2 = true;
+		while (continua2 == true)
+			try {
+				dataNascimento = sdf.parse(sc.nextLine());
+				continua2 = false;
+			} catch (Exception e) {
+				continua2 = true;
+				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
+			}
+		return dataNascimento;
 	}
 	
 	public void mostrarTodasPessoas() {
@@ -105,19 +107,14 @@ public class Service {
 					+ "3 - Data de nascimento");
 			if (tipo.equals("Aluno")) {
 				System.out.println("4 - Nota final do curso");
-			}
-			
+			}			
 			int entrada = sc.nextInt();
 			if(entrada == 1) {
-				System.out.println("Digite o nome: ");
-				sc.nextLine();
-				String nome = sc.nextLine();			
-				pessoa.setNome(nome);
+				pessoa.setNome(recebeNome());
 			}else if(entrada == 2) {
 				System.out.println("Digite o telefone com DDD.\n"
 						+ "Somente os 11 números (XXXXXXXXXXX): ");
-				sc.nextLine();
-				String telefone = sc.nextLine().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
+				String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
 				pessoa.setTelefone(telefone);
 			}else if(entrada == 3) {
 				pessoa.setDataNascimento(recebeDataNascimento());
