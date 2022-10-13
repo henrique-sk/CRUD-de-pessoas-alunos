@@ -28,7 +28,7 @@ public class Aluno extends Pessoa {
 		return this.id
 				+ " - "	+ this.nome
 				+ " - Nota Final: " + this.notaFinal
-				+ " - Fone: "	+ this.telefone
+				+ " - Fone: " + this.telefone
 				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
 				+ " - Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
 				+ " - Última Alt.:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);

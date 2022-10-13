@@ -29,20 +29,20 @@ public class Service {
 		String telefone = recebeTelefone();
 		Date dataNascimento = recebeDataNascimento();		
 		Pessoa pessoa = null;
-		boolean continua3 = true;
-		while (continua3 == true) {
+		boolean continua = true;
+		while (continua == true) {
 			System.out.println("Deseja inserir uma nota final do curso? S/N");
 			String temNota = sc.nextLine().toUpperCase();
 			if (temNota.equals("N")) {
 				pessoa = new Pessoa(nome, telefone, dataNascimento);
 				this.repository.salvar(pessoa);
-				continua3 = false;
+				continua = false;
 			} else if (temNota.equals("S")){
 				System.out.println("Qual a nota final do curso?");
 				Double notaFinal = sc.nextDouble();
 				pessoa = new Aluno(nome, telefone, dataNascimento, notaFinal);
 				this.repository.salvar(pessoa);
-				continua3 = false;
+				continua = false;
 			} 
 		}		
 		System.out.println("\\/ Cadastro realizado com sucesso! \\/\n"
@@ -64,13 +64,13 @@ public class Service {
 	
 	private Date recebeDataNascimento() {
 		Date dataNascimento = null;
-		boolean continua2 = true;
-		while (continua2 == true)
+		boolean continua = true;
+		while (continua == true)
 			try {
 				dataNascimento = sdf.parse(sc.nextLine());
-				continua2 = false;
+				continua = false;
 			} catch (Exception e) {
-				continua2 = true;
+				continua = true;
 				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
 			}
 		return dataNascimento;
