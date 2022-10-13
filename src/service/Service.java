@@ -35,15 +35,13 @@ public class Service {
 			String temNota = sc.nextLine().toUpperCase();
 			if (temNota.equals("N")) {
 				pessoa = new Pessoa(nome, telefone, dataNascimento);
-				this.repository.salvar(pessoa);
 				continua = false;
 			} else if (temNota.equals("S")){
-				System.out.println("Qual a nota final do curso?");
-				Double notaFinal = sc.nextDouble();
+				Double notaFinal = recebeNotaFinal();
 				pessoa = new Aluno(nome, telefone, dataNascimento, notaFinal);
-				this.repository.salvar(pessoa);
 				continua = false;
-			} 
+			}
+			this.repository.salvar(pessoa);
 		}		
 		System.out.println("\\/ Cadastro realizado com sucesso! \\/\n"
 				+ "Cadastro n° " + pessoa);
@@ -56,7 +54,7 @@ public class Service {
 	}
 	
 	private String recebeTelefone() {
-		System.out.println("Digite o telefone com DDD.\n"
+		System.out.println("Digite o telefone com DDD. "
 				+ "Somente os 11 números (XXXXXXXXXXX): ");
 		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
 		return telefone;
@@ -74,7 +72,13 @@ public class Service {
 				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
 			}
 		return dataNascimento;
-	}	
+	}
+	
+	private Double recebeNotaFinal() {
+		System.out.println("Digite a nota final do curso: ");
+		Double notaFinal = sc.nextDouble();
+		return notaFinal;
+	}
 	
 	public void mostrarTodasPessoas() {
 		System.out.println("Listagem de todas pessoas:");
@@ -121,10 +125,7 @@ public class Service {
 			}else if(entrada == 3) {
 				pessoa.setDataNascimento(recebeDataNascimento());
 			}else if (tipo.equals("Aluno") && entrada == 4) {
-				System.out.println("Digite a nota final do curso: ");
-				sc.nextLine();
-				Double notaFinal = sc.nextDouble();
-				pessoa.setNotaFinal(notaFinal);
+				pessoa.setNotaFinal(recebeNotaFinal());
 			}else if (entrada == 0) {	
 				continua = false;
 				break;
