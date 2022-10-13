@@ -26,9 +26,7 @@ public class Service {
 	
 	public void criarPessoaAluno() {
 		String nome = recebeNome();
-		System.out.println("Digite o telefone com DDD. "
-				+ "Somente os 11 números (XXXXXXXXXXX): ");
-		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");		
+		String telefone = recebeTelefone();
 		Date dataNascimento = recebeDataNascimento();		
 		Pessoa pessoa = null;
 		boolean continua3 = true;
@@ -57,6 +55,13 @@ public class Service {
 		return nome;
 	}
 	
+	private String recebeTelefone() {
+		System.out.println("Digite o telefone com DDD.\n"
+				+ "Somente os 11 números (XXXXXXXXXXX): ");
+		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
+		return telefone;
+	}
+	
 	private Date recebeDataNascimento() {
 		Date dataNascimento = null;
 		boolean continua2 = true;
@@ -69,7 +74,7 @@ public class Service {
 				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
 			}
 		return dataNascimento;
-	}
+	}	
 	
 	public void mostrarTodasPessoas() {
 		System.out.println("Listagem de todas pessoas:");
@@ -112,10 +117,7 @@ public class Service {
 			if(entrada == 1) {
 				pessoa.setNome(recebeNome());
 			}else if(entrada == 2) {
-				System.out.println("Digite o telefone com DDD.\n"
-						+ "Somente os 11 números (XXXXXXXXXXX): ");
-				String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
-				pessoa.setTelefone(telefone);
+				pessoa.setTelefone(recebeTelefone());
 			}else if(entrada == 3) {
 				pessoa.setDataNascimento(recebeDataNascimento());
 			}else if (tipo.equals("Aluno") && entrada == 4) {
