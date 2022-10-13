@@ -46,20 +46,8 @@ public class Service {
 		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
 		
 		Date dataNascimento = recebeDataNascimento();
-//		boolean continua2 = true;
-//		Date dataNascimento = null;
-//		while (continua2 == true) {
-//			String dataNascimentoString = sc.nextLine();
-//			try {
-//				dataNascimento = sdf.parse(dataNascimentoString);
-//				continua2 = false;
-//			} catch (Exception e) {
-//				continua2 = true;
-//				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
-//			}	
-//		}		
 		
-		Pessoa pessoa;
+		Pessoa pessoa = null;
 		boolean continua3 = true;
 		while (continua3 == true) {
 			System.out.println("Deseja inserir uma nota final do curso? S/N");
@@ -76,21 +64,9 @@ public class Service {
 				continua3 = false;
 			} 
 		}
-//		this.repository.salvar(pessoa);
 		
-//		System.out.println("Digite a nota final do curso (ou 'N' para concluir o cadastro): ");			
-//		String notaFinal = sc.nextLine();
-//		
-//		Pessoa pessoa;
-//		
-//		if(notaFinal.toUpperCase().equals("N")) {
-//			pessoa = new Pessoa(nome, telefone, dataNascimento);
-//		} else {			
-//			pessoa = new Aluno(nome, telefone, dataNascimento, Double.parseDouble(notaFinal));
-//		}		
-//		this.repository.salvar(pessoa);
-		
-		System.out.println("Cadastrado realizado com sucesso!");
+		System.out.println("\\/ Cadastro realizado com sucesso! \\/\n"
+				+ "Cadastro n° " + pessoa);
 	}
 	
 	public void mostrarTodasPessoas() {
@@ -145,19 +121,6 @@ public class Service {
 				pessoa.setTelefone(telefone);
 			}else if(entrada == 3) {
 				pessoa.setDataNascimento(recebeDataNascimento());
-//				boolean continua2 = true;
-//				while (continua2 == true) {
-//					String dataNascimento = sc.nextLine();
-//					Date nascimento = null;
-//					try {
-//						nascimento = sdf.parse(dataNascimento);
-//						continua2 = false;
-//					} catch (Exception e) {
-//						continua2 = true;
-//						System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
-//					}					
-//					pessoa.setDataNascimento(nascimento);
-//				}
 			}else if (tipo.equals("Aluno") && entrada == 4) {
 				System.out.println("Digite a nota final do curso: ");
 				sc.nextLine();
