@@ -103,20 +103,27 @@ public class Service {
 		return tipo;
 	}
 	
+	private void pessoaParaAluno(Pessoa pessoa, double nota) {		
+		Pessoa aluno = new Aluno(pessoa.getNome(), pessoa.getTelefone(), pessoa.getDataNascimento(), nota);
+		this.repository.salvar(aluno);
+		aluno.setDataCadastro(pessoa.getDataCadastro());
+		this.repository.removerPorId(pessoa.getId());
+		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
+	}
+	
 	public void atualizarDados(int id, String tipo) {		
 		Pessoa pessoa = this.repository.buscarPorId(id);
 		
 		boolean continua = true;
-		do {
+		do {			
 			System.out.println("Dados atuais da pessoa/aluno selecionada:\n"
 					+ pessoa + "\n"
-					+ "Qual dado deseja atualizar? (Ou '0' para retornar ao Menu Principal)\n"
+					+ "Qual dado deseja atualizar?\n"
 					+ "1 - Nome\n"
 					+ "2 - Telefone\n"
-					+ "3 - Data de nascimento");
-			if (tipo.equals("Aluno")) {
-				System.out.println("4 - Nota final do curso");
-			}			
+					+ "3 - Data de nascimento\n"
+					+ "4 - Inserir/alterar nota final do curso\n"
+					+ "0 - Retornar ao Menu Principal");
 			int entrada = sc.nextInt();
 			if(entrada == 1) {
 				pessoa.setNome(recebeNome());
@@ -124,13 +131,18 @@ public class Service {
 				pessoa.setTelefone(recebeTelefone());
 			}else if(entrada == 3) {
 				pessoa.setDataNascimento(recebeDataNascimento());
-			}else if (tipo.equals("Aluno") && entrada == 4) {
-				pessoa.setNotaFinal(recebeNotaFinal());
-			}else if (entrada == 0) {	
+			}else if (entrada == 4) {
+				if (!tipo.equals("Aluno")) {
+					this.pessoaParaAluno(pessoa, this.recebeNotaFinal());
+					break;
+				} else {
+					pessoa.setNotaFinal(recebeNotaFinal());
+				}				
+			}else if (entrada == 0) {
 				continua = false;
 				break;
 			}
-			pessoa.setDataAlteracao(hoje);
+			pessoa.setDataAlteracao(hoje);			
 			
 		} while (continua == true);
 	}
