@@ -95,6 +95,14 @@ public class Service {
 			.forEach(aluno -> System.out.println(aluno));
 	}
 	
+	public void mostrarNaoAlunos() {
+		System.out.println("Listagem de todas pessoas que não são alunos:");
+		List<Pessoa> pessoas = this.repository.buscarTodos();
+		
+		pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno))
+			.forEach(aluno -> System.out.println(aluno));
+	}
+	
 	public String tipoPessoa(int id) {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		String tipo = pessoas.stream().filter(pessoa -> pessoa.getId() == id)

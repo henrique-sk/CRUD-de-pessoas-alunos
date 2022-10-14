@@ -22,7 +22,8 @@ public class Menu {
 		System.out.println(""
 				+ cabecalho
 				+ "1 - Mostrar todas pessoas\n"
-				+ "2 - Mostrar somente alunos");
+				+ "2 - Mostrar somente alunos\n"
+				+ "3 - Mostrar todas pessoas que não são alunos");
 	}
 	
 	public static final void porID() {

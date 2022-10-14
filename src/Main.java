@@ -29,6 +29,8 @@ public class Main {
 						service.mostrarTodasPessoas();
 					} else if (opcao2 == 2) {
 						service.mostrarTodosAlunos();
+					} else if (opcao2 == 3) {
+						service.mostrarNaoAlunos();
 					}
 					break;
 				case 3:
