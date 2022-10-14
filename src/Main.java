@@ -35,8 +35,7 @@ public class Main {
 					break;
 				case 3:
 					service.mostrarTodasPessoas();
-					System.out.println(
-							"Informe o número correspondente à pessoa que deseja atuaizar (ou '0' para retornar ao menu principal):");
+					Menu.menuPorID();
 					int opcao3 = sc.nextInt();
 					String tipoPessoa;
 					if (opcao3 == 0) {

@@ -1,5 +1,7 @@
 package util;
 
+import model.Pessoa;
+
 public class Menu {
 	
 	private static final String cabecalho = ""
@@ -26,10 +28,20 @@ public class Menu {
 				+ "3 - Mostrar todas pessoas que não são alunos");
 	}
 	
-	public static final void porID() {
-		System.out.println(""
-				+ "--------------------------------------------------------\n"
-				+ "Digite o número correspondente a pessoa/aluno desejada:\n");
+	public static final void menuPorID() {
+		System.out.println("Informe o número correspondente à pessoa que deseja atuaizar "
+				+ "(ou '0' para retornar ao menu principal):");
+	}
+	
+	public static final void menuAtualizar(Pessoa pessoa) {
+		System.out.println("Dados atuais da pessoa/aluno selecionada:\n"
+				+ pessoa + "\n"
+				+ "Qual dado deseja atualizar?\n"
+				+ "1 - Nome\n"
+				+ "2 - Telefone\n"
+				+ "3 - Data de nascimento\n"
+				+ "4 - Inserir/alterar nota final do curso\n"
+				+ "0 - Retornar ao Menu Principal");
 	}
 
 }

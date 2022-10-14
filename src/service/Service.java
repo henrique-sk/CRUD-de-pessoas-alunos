@@ -10,6 +10,7 @@ import model.Aluno;
 import model.Pessoa;
 import repository.Repository;
 import util.Data;
+import util.Menu;
 
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
@@ -124,14 +125,7 @@ public class Service {
 		
 		boolean continua = true;
 		do {			
-			System.out.println("Dados atuais da pessoa/aluno selecionada:\n"
-					+ pessoa + "\n"
-					+ "Qual dado deseja atualizar?\n"
-					+ "1 - Nome\n"
-					+ "2 - Telefone\n"
-					+ "3 - Data de nascimento\n"
-					+ "4 - Inserir/alterar nota final do curso\n"
-					+ "0 - Retornar ao Menu Principal");
+			Menu.menuAtualizar(pessoa);
 			int entrada = sc.nextInt();
 			if(entrada == 1) {
 				pessoa.setNome(recebeNome());
@@ -140,11 +134,11 @@ public class Service {
 			}else if(entrada == 3) {
 				pessoa.setDataNascimento(recebeDataNascimento());
 			}else if (entrada == 4) {
-				if (!tipo.equals("Aluno")) {
+				if (tipo.equals("Aluno")) {
+					pessoa.setNotaFinal(recebeNotaFinal());
+				} else {
 					this.pessoaParaAluno(pessoa, this.recebeNotaFinal());
 					break;
-				} else {
-					pessoa.setNotaFinal(recebeNotaFinal());
 				}				
 			}else if (entrada == 0) {
 				continua = false;
