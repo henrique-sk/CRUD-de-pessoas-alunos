@@ -42,8 +42,8 @@ public class Service {
 				pessoa = new Aluno(nome, telefone, dataNascimento, notaFinal);
 				continua = false;
 			}
-			this.repository.salvar(pessoa);
 		}		
+		this.repository.salvar(pessoa);
 		System.out.println("\\/ Cadastro realizado com sucesso! \\/\n"
 				+ "Cadastro n° " + pessoa);
 	}
@@ -55,9 +55,13 @@ public class Service {
 	}
 	
 	private String recebeTelefone() {
-		System.out.println("Digite o telefone com DDD. "
-				+ "Somente os 11 números (XXXXXXXXXXX): ");
-		String telefone = sc.next().replaceFirst("^0+(?!$)", "").replaceAll("[^0-9 ]", "");
+		
+		String telefone = "";
+		while (!telefone.matches("[0-9]+") || telefone.length() < 11 || telefone.replaceFirst("0", "").length() > 11) {
+			System.out.println("Digite o telefone com DDD. "
+					+ "Somente os 11 números (XXXXXXXXXXX): ");
+			telefone = sc.next();
+		}
 		return telefone;
 	}
 	
@@ -81,27 +85,21 @@ public class Service {
 		return notaFinal;
 	}
 	
-	public void mostrarTodasPessoas() {
-		System.out.println("Listagem de todas pessoas:");
+	public void mostrarPessoasAlunos(int opcao) {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
-		pessoas.stream().forEach(pessoa -> System.out.println(pessoa));
-	}
-	
-	public void mostrarTodosAlunos() {
-		System.out.println("Listagem de todos alunos:");
-		List<Pessoa> pessoas = this.repository.buscarTodos();
-		
-		pessoas.stream().filter(pessoa -> pessoa instanceof Aluno)
+		if (opcao == 1) {
+			System.out.println("Listagem de todas pessoas:");
+			pessoas.stream().forEach(pessoa -> System.out.println(pessoa));			
+		} else if (opcao == 2) {
+			System.out.println("Listagem de todos alunos:");
+			pessoas.stream().filter(pessoa -> pessoa instanceof Aluno)
 			.forEach(aluno -> System.out.println(aluno));
-	}
-	
-	public void mostrarNaoAlunos() {
-		System.out.println("Listagem de todas pessoas que não são alunos:");
-		List<Pessoa> pessoas = this.repository.buscarTodos();
-		
-		pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno))
-			.forEach(aluno -> System.out.println(aluno));
+		} else if (opcao == 3) {
+			System.out.println("Listagem de todas pessoas que não são alunos:");
+			pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno))
+			.forEach(pessoa -> System.out.println(pessoa));
+		}
 	}
 	
 	public String tipoPessoa(int id) {

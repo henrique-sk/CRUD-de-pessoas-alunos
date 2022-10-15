@@ -25,16 +25,13 @@ public class Main {
 				case 2:
 					Menu.menuMostrar();
 					int opcao2 = sc.nextInt();
-					if (opcao2 == 1) {
-						service.mostrarTodasPessoas();
-					} else if (opcao2 == 2) {
-						service.mostrarTodosAlunos();
-					} else if (opcao2 == 3) {
-						service.mostrarNaoAlunos();
-					}
+					if (opcao2 < 0 || opcao2 > 3) {
+						throw new SistemaException("Opção inválida!!");
+					}					
+					service.mostrarPessoasAlunos(opcao2);
 					break;
 				case 3:
-					service.mostrarTodasPessoas();
+					service.mostrarPessoasAlunos(1);
 					Menu.menuPorID();
 					int opcao3 = sc.nextInt();
 					String tipoPessoa;
@@ -47,7 +44,7 @@ public class Main {
 					break;
 				case 4:
 					System.out.println("Informe o número correspondente à pessoa que deseja deletar:");
-					service.mostrarTodasPessoas();
+					service.mostrarPessoasAlunos(1);
 					int opcao4 = sc.nextInt();
 					service.deletarPessoa(opcao4);
 					break;

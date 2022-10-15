@@ -25,7 +25,8 @@ public class Menu {
 				+ cabecalho
 				+ "1 - Mostrar todas pessoas\n"
 				+ "2 - Mostrar somente alunos\n"
-				+ "3 - Mostrar todas pessoas que não são alunos");
+				+ "3 - Mostrar todas pessoas que não são alunos\n"
+				+ "0 - Retornar ao Menu Principal");
 	}
 	
 	public static final void menuPorID() {
