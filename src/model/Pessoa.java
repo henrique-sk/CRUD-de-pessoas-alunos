@@ -79,10 +79,10 @@ public class Pessoa implements Banco{
 	public String toString() {
 		return this.id
 				+ " - "	+ this.nome
-				+ " - Fone: " + this.telefone
+				+ " - Fone: " + util.Telefone.formataFone(this.telefone)
 				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
-				+ " - Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
-				+ " - Última Alt.:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
+				+ " - Data do Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
+				+ " - Última Alteração:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
 	}
 
 	public void setNotaFinal(double notaFinal) {

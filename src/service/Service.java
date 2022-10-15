@@ -1,9 +1,12 @@
 package service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.text.MaskFormatter;
 
 import exception.SistemaException;
 import model.Aluno;
@@ -23,7 +26,7 @@ public class Service {
 		this.repository.salvar(new Pessoa("Luana", "15777777777", Data.stringParaData("12/12/2002")));
 		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6));
-	}	
+	}
 	
 	public void criarPessoaAluno() {
 		String nome = recebeNome();
@@ -54,8 +57,7 @@ public class Service {
 		return nome;
 	}
 	
-	private String recebeTelefone() {
-		
+	private String recebeTelefone() {		
 		String telefone = "";
 		while (!telefone.matches("[0-9]+") || telefone.length() < 11 || telefone.replaceFirst("0", "").length() > 11) {
 			System.out.println("Digite o telefone com DDD. "
