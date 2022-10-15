@@ -27,7 +27,7 @@ public class Aluno extends Pessoa {
 	public String toString() {
 		return this.id
 				+ " - "	+ this.nome
-				+ " - Nota Final: " + this.notaFinal
+				+ " - Nota Final: " + String.format("%.2f", this.notaFinal)
 				+ " - Fone: " + util.Telefone.formataFone(this.telefone)
 				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
 				+ " - Data do Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)

@@ -14,6 +14,7 @@ import model.Pessoa;
 import repository.Repository;
 import util.Data;
 import util.Menu;
+import util.NotaFinal;
 
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
@@ -81,10 +82,19 @@ public class Service {
 		return dataNascimento;
 	}
 	
-	private Double recebeNotaFinal() {
-		System.out.println("Digite a nota final do curso: ");
-		Double notaFinal = sc.nextDouble();
-		return notaFinal;
+	private Double recebeNotaFinal() {		
+		String notaFinal = "";
+		double notaFinalOk = -1;
+		while (notaFinalOk == -1) {
+			if (NotaFinal.isNumeric(notaFinal) &&
+					(Double.parseDouble(notaFinal) >= 0 && Double.parseDouble(notaFinal) <= 10)) {
+				notaFinalOk = Double.parseDouble(notaFinal);
+			} else {
+				System.out.println("Digite a nota final do curso: (entre 0 e 10)");
+				notaFinal = sc.next().replace(",", ".");
+			}
+		}
+		return notaFinalOk;
 	}
 	
 	public void mostrarPessoasAlunos(int opcao) {
