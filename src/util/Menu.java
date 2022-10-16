@@ -37,7 +37,7 @@ public class Menu {
 	public static final void menuAtualizar(Pessoa pessoa) {
 		System.out.println("Dados atuais da pessoa/aluno selecionada:\n"
 				+ pessoa + "\n"
-				+ "Qual dado deseja atualizar?\n"
+				+ cabecalho
 				+ "1 - Nome\n"
 				+ "2 - Telefone\n"
 				+ "3 - Data de nascimento\n"

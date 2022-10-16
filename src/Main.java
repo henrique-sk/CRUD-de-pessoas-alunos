@@ -15,38 +15,33 @@ public class Main {
 		do {
 			try {
 				Menu.menuPrincipal();
-				int opcao1 = sc.nextInt();
-				sc.nextLine();
-
-				switch (opcao1) {
+				int opcaoMenu = sc.nextInt();
+				switch (opcaoMenu) {
 				case 1:
 					service.criarPessoaAluno();
 					break;
 				case 2:
 					Menu.menuMostrar();
-					int opcao2 = sc.nextInt();
-					if (opcao2 < 0 || opcao2 > 3) {
+					int opcaoMostrar = sc.nextInt();
+					if (opcaoMostrar < 0 || opcaoMostrar > 3) {
 						throw new SistemaException("Opção inválida!!");
 					}					
-					service.mostrarPessoasAlunos(opcao2);
+					service.mostrarPessoasAlunos(opcaoMostrar);
 					break;
 				case 3:
 					service.mostrarPessoasAlunos(1);
 					Menu.menuPorID();
-					int opcao3 = sc.nextInt();
-					String tipoPessoa;
-					if (opcao3 == 0) {
+					int opcaoId = sc.nextInt();		
+					if (opcaoId == 0) {
 						break;
-					} else {
-						tipoPessoa = service.tipoPessoa(opcao3);
 					}
-					service.atualizarDados(opcao3, tipoPessoa);
+					service.atualizarDados(opcaoId);
 					break;
 				case 4:
 					System.out.println("Informe o número correspondente à pessoa que deseja deletar:");
 					service.mostrarPessoasAlunos(1);
-					int opcao4 = sc.nextInt();
-					service.deletarPessoa(opcao4);
+					opcaoId = sc.nextInt();
+					service.deletarPessoa(opcaoId);
 					break;
 				case 0:
 					System.out.println("Obrigado por utilizar nosso sistema. Até logo!");

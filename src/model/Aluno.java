@@ -31,7 +31,7 @@ public class Aluno extends Pessoa {
 				+ " - Fone: " + util.Telefone.formataFone(this.telefone)
 				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
 				+ " - Data do Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
-				+ " - Última Alteração:" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
+				+ " - Última Alteração: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
 	}	
 
 }
