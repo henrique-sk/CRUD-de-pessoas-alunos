@@ -15,8 +15,8 @@ import util.NotaFinal;
 
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	Scanner sc;
 	Repository<Pessoa> repository = new Repository<>();
+	Scanner sc;
 
 	public Service(Scanner sc) {
 		this.sc = sc;
@@ -121,7 +121,7 @@ public class Service {
 		
 		boolean continua = true;
 		do {
-			Menu.menuAtualizar(pessoa);
+			Menu.MENU_ATUALIZAR(pessoa);
 			int entrada = sc.nextInt();
 			if (entrada == 1) {
 				pessoa.setNome(recebeNome());
