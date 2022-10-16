@@ -19,6 +19,7 @@ public class Main {
 				sc.nextLine();
 				switch (opcaoMenu) {
 				case 1:
+					System.out.println("Cadastramento de pessoa/aluno.");
 					service.criarPessoaAluno();
 					break;
 				case 2:
@@ -31,7 +32,9 @@ public class Main {
 					break;
 				case 3:
 					service.mostrarPessoasAlunos(1);
-					Menu.MENU_POR_ID();
+					System.out.println(""
+							+ "Informe o número correspondente à pessoa que deseja atuaizar "
+							+ "(ou '0' para retornar ao menu principal):");
 					int opcaoId = sc.nextInt();		
 					if (opcaoId == 0) {
 						break;
@@ -39,7 +42,8 @@ public class Main {
 					service.atualizarDados(opcaoId);
 					break;
 				case 4:
-					System.out.println("Informe o número correspondente à pessoa que deseja deletar:");
+					System.out.println(""
+							+ "Informe o número correspondente à pessoa que deseja deletar:");
 					service.mostrarPessoasAlunos(1);
 					opcaoId = sc.nextInt();
 					service.deletarPessoa(opcaoId);

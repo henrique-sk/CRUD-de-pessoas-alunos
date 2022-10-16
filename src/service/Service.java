@@ -26,9 +26,9 @@ public class Service {
 	}
 
 	public void criarPessoaAluno() {
-		String nome = recebeNome();
-		String telefone = recebeTelefone();
-		Date dataNascimento = recebeDataNascimento();
+		String nome = receberNome();
+		String telefone = receberTelefone();
+		Date dataNascimento = receberDataNascimento();
 		Pessoa pessoa = null;
 		boolean continua = true;
 		while (continua == true) {
@@ -38,7 +38,7 @@ public class Service {
 				pessoa = new Pessoa(nome, telefone, dataNascimento);
 				continua = false;
 			} else if (temNota.equals("S")) {
-				Double notaFinal = recebeNotaFinal();
+				Double notaFinal = receberNotaFinal();
 				pessoa = new Aluno(nome, telefone, dataNascimento, notaFinal);
 				continua = false;
 			}
@@ -47,22 +47,24 @@ public class Service {
 		System.out.println("Cadastro realizado com sucesso!\n" + "ID n° " + pessoa);
 	}
 
-	private String recebeNome() {
+	private String receberNome() {
 		System.out.println("Digite o nome: ");
 		String nome = sc.next();
 		return nome;
 	}
 
-	private String recebeTelefone() {
+	private String receberTelefone() {
 		String telefone = "";
-		while (!telefone.matches("[0-9]+") || telefone.length() < 11 || telefone.replaceFirst("0", "").length() > 11) {
-			System.out.println("Digite o telefone com DDD. " + "Somente os 11 números (XXXXXXXXXXX): ");
+		while (!telefone.matches("[0-9]+") || telefone.length() < 11
+				|| telefone.replaceFirst("0", "").length() > 11) {
+			System.out.println("Digite o telefone com DDD. "
+				+ "Somente os 11 números (XXXXXXXXXXX): ");
 			telefone = sc.next();
 		}
 		return telefone;
 	}
 
-	private Date recebeDataNascimento() {
+	private Date receberDataNascimento() {
 		Date dataNascimento = null;
 		boolean continua = true;
 		while (continua == true)
@@ -70,18 +72,18 @@ public class Service {
 				dataNascimento = sdf.parse(sc.nextLine());
 				continua = false;
 			} catch (Exception e) {
-				continua = true;
 				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
 			}
 		return dataNascimento;
 	}
 
-	private Double recebeNotaFinal() {
+	private Double receberNotaFinal() {
 		String notaFinal = "";
 		double notaFinalOk = -1;
 		while (notaFinalOk == -1) {
 			if (NotaFinal.isNumeric(notaFinal)
-					&& (Double.parseDouble(notaFinal) >= 0 && Double.parseDouble(notaFinal) <= 10)) {
+					&& (Double.parseDouble(notaFinal) >= 0
+					&& Double.parseDouble(notaFinal) <= 10)) {
 				notaFinalOk = Double.parseDouble(notaFinal);
 			} else {
 				System.out.println("Digite a nota final do curso: (entre 0 e 10)");
@@ -98,9 +100,11 @@ public class Service {
 		if (opcao == 1) {
 			pessoas.stream().forEach(pessoa -> System.out.println(pessoa));
 		} else if (opcao == 2) {
-			pessoas.stream().filter(pessoa -> pessoa instanceof Aluno).forEach(aluno -> System.out.println(aluno));
+			pessoas.stream().filter(pessoa -> pessoa instanceof Aluno)
+				.forEach(aluno -> System.out.println(aluno));
 		} else if (opcao == 3) {
-			pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno)).forEach(pessoa -> System.out.println(pessoa));
+			pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno))
+				.forEach(pessoa -> System.out.println(pessoa));
 		}
 	}
 
@@ -124,16 +128,16 @@ public class Service {
 			Menu.MENU_ATUALIZAR(pessoa);
 			int entrada = sc.nextInt();
 			if (entrada == 1) {
-				pessoa.setNome(recebeNome());
+				pessoa.setNome(receberNome());
 			} else if (entrada == 2) {
-				pessoa.setTelefone(recebeTelefone());
+				pessoa.setTelefone(receberTelefone());
 			} else if (entrada == 3) {
-				pessoa.setDataNascimento(recebeDataNascimento());
+				pessoa.setDataNascimento(receberDataNascimento());
 			} else if (entrada == 4) {
 				if (pessoa instanceof Aluno) {
-					pessoa.setNotaFinal(recebeNotaFinal());
+					pessoa.setNotaFinal(receberNotaFinal());
 				} else {
-					this.pessoaParaAluno(pessoa, this.recebeNotaFinal());
+					this.pessoaParaAluno(pessoa, this.receberNotaFinal());
 					break;
 				}
 			} else if (entrada == 0) {
@@ -145,13 +149,13 @@ public class Service {
 		} while (continua == true);
 	}
 
-	public void deletarPessoa(int opcao4) throws SistemaException {
-		Pessoa pessoa = repository.buscarPorId(opcao4);
+	public void deletarPessoa(int opcaoId) throws SistemaException {
+		Pessoa pessoa = repository.buscarPorId(opcaoId);
 
 		if (pessoa == null) {
 			throw new SistemaException("Pessoa não encontrada!");
 		}
-		repository.removerPorId(opcao4);
+		repository.removerPorId(opcaoId);
 
 		System.out.println("Pessoa removida com sucesso!");
 	}

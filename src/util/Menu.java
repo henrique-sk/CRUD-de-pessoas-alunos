@@ -29,11 +29,6 @@ public class Menu {
 				+ "0 - Retornar ao Menu Principal");
 	}
 	
-	public static final void MENU_POR_ID() {
-		System.out.println("Informe o número correspondente à pessoa que deseja atuaizar "
-				+ "(ou '0' para retornar ao menu principal):");
-	}
-	
 	public static final void MENU_ATUALIZAR(Pessoa pessoa) {
 		System.out.println("Dados atuais da pessoa/aluno selecionada:\n"
 				+ pessoa + "\n"
