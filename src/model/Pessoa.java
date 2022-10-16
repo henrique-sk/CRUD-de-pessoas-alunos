@@ -1,6 +1,5 @@
 package model;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -75,19 +74,19 @@ public class Pessoa implements Banco{
 	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
+	
+	public void setNotaFinal(double notaFinal) {
+		
+	}
 
 	@Override
 	public String toString() {
 		return this.id
 				+ " - "	+ this.nome
 				+ " - Fone: " + Telefone.formataFone(this.telefone)
-				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
-				+ " - Data do Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
-				+ " - Última Alteração: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
-	}
-
-	public void setNotaFinal(double notaFinal) {
-		
+				+ " - Nasc: " + Data.formataNascimento(this.dataNascimento)
+				+ " - Data do Cadastro: " + Data.formataData(this.dataCadastro)
+				+ " - Última Alteração: " + Data.formataData(this.dataAlteracao);
 	}
 
 }

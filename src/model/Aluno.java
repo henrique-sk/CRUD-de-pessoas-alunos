@@ -1,7 +1,9 @@
 package model;
 
-import java.text.DateFormat;
 import java.util.Date;
+
+import util.Data;
+import util.Telefone;
 
 public class Aluno extends Pessoa {
 	
@@ -28,10 +30,10 @@ public class Aluno extends Pessoa {
 		return this.id
 				+ " - "	+ this.nome
 				+ " - Nota Final: " + String.format("%.2f", this.notaFinal)
-				+ " - Fone: " + util.Telefone.formataFone(this.telefone)
-				+ " - Nasc: " + DateFormat.getDateInstance(DateFormat.SHORT).format(this.dataNascimento)
-				+ " - Data do Cadastro: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataCadastro)
-				+ " - Última Alteração: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.dataAlteracao);
+				+ " - Fone: " + Telefone.formataFone(this.telefone)
+				+ " - Nasc: " + Data.formataNascimento(this.dataNascimento)
+				+ " - Data do Cadastro: " + Data.formataData(this.dataCadastro)
+				+ " - Última Alteração: " + Data.formataData(this.dataAlteracao);
 	}	
 
 }
