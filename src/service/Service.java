@@ -58,7 +58,7 @@ public class Service {
 		while (!telefone.matches("[0-9]+") || telefone.length() < 11
 				|| telefone.replaceFirst("0", "").length() > 11) {
 			System.out.println("Digite o telefone com DDD. "
-				+ "Somente os 11 números (XXXXXXXXXXX): ");
+				+ "Somente os 11 números (###########): ");
 			telefone = sc.next();
 		}
 		return telefone;
