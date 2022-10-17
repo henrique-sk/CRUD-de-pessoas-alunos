@@ -19,7 +19,8 @@ Criar um CRUD (Create, Read, Update, Delete) de pessoas/alunos no terminal usand
   * Data de cadastro da pessoa
   * Data da última alteração
   * Nota final do curso 
-    *Caso o usuário informe a nota final do curso, deve ser criado um aluno. Caso não seja informada, deve ser criada uma pessoa.*
+
+   *Caso o usuário informe a nota final do curso, deve ser criado um aluno. Caso não seja informada, deve ser criada uma pessoa.*
 
 * **Funcionalidades:**
   * Criar menu interativo que o usuário possa usar para executar as opções acima.
