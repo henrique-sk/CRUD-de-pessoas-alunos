@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		Scanner sc = new Scanner(System.in);
-		Service service = new Service(sc);
+		Service service = new Service();
 
 		boolean continua = true;
 		do {
@@ -66,6 +66,7 @@ public class Main {
 			}
 
 		} while (continua);
+		sc.close();
 
 	}
 

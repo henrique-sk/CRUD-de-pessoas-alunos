@@ -17,15 +17,15 @@ public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	Repository<Pessoa> repository = new Repository<>();
 	Scanner sc;
-
-	public Service(Scanner sc) {
-		this.sc = sc;
+	
+	public Service() {
 		this.repository.salvar(new Pessoa("Luana", "15777777777", Data.stringParaData("12/12/2002")));
 		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6));
 	}
 
 	public void criarPessoaAluno() {
+		System.out.println("Cadastramento de pessoa/aluno.");
 		String nome = receberNome();
 		String telefone = receberTelefone();
 		Date dataNascimento = receberDataNascimento();
@@ -44,7 +44,7 @@ public class Service {
 			}
 		}
 		this.repository.salvar(pessoa);
-		System.out.println("Cadastro realizado com sucesso!\n" + "ID n° " + pessoa);
+		System.out.println("Cadastro realizado com sucesso!\nID n° " + pessoa);
 	}
 
 	private String receberNome() {
@@ -135,7 +135,8 @@ public class Service {
 				pessoa.setDataNascimento(receberDataNascimento());
 			} else if (entrada == 4) {
 				if (pessoa instanceof Aluno) {
-					pessoa.setNotaFinal(receberNotaFinal());
+					Aluno aluno = (Aluno) pessoa;
+					aluno.setNotaFinal(receberNotaFinal());
 				} else {
 					this.pessoaParaAluno(pessoa, this.receberNotaFinal());
 					break;

@@ -75,12 +75,9 @@ public class Pessoa implements Banco{
 		this.dataAlteracao = dataAlteracao;
 	}
 	
-	public void setNotaFinal(double notaFinal) {
-		
-	}
-
 	@Override
 	public String toString() {
+		//if else
 		return this.id
 				+ " - "	+ this.nome
 				+ " - Fone: " + Telefone.formataFone(this.telefone)
