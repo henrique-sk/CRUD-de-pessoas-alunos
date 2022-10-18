@@ -19,7 +19,6 @@ public class Main {
 				sc.nextLine();
 				switch (opcaoMenu) {
 				case 1:
-					System.out.println("Cadastramento de pessoa/aluno.");
 					service.criarPessoaAluno();
 					break;
 				case 2:
@@ -67,7 +66,6 @@ public class Main {
 
 		} while (continua);
 		sc.close();
-
 	}
 
 }

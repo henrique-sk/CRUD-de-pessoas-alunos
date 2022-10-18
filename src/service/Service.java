@@ -16,17 +16,19 @@ import util.NotaFinal;
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	Repository<Pessoa> repository = new Repository<>();
-	Scanner sc;
+	Scanner sc = new Scanner(System.in); // injetar?
 	
-	public Service() {
+	public Service() {		
 		this.repository.salvar(new Pessoa("Luana", "15777777777", Data.stringParaData("12/12/2002")));
+		this.repository.salvar(new Pessoa("Raul", "46444444444", Data.stringParaData("09/09/2002")));
+		repository.buscarPorId(2).setNotaFinal(5.0);
 		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
-		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6));
+		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6.0));
 	}
 
 	public void criarPessoaAluno() {
 		System.out.println("Cadastramento de pessoa/aluno.");
-		String nome = receberNome();
+		String nome = receberNome();		
 		String telefone = receberTelefone();
 		Date dataNascimento = receberDataNascimento();
 		Pessoa pessoa = null;
