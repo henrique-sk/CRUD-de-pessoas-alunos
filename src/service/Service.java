@@ -109,6 +109,23 @@ public class Service {
 				.forEach(pessoa -> System.out.println(pessoa));
 		}
 	}
+	
+	public void pesquisarPorNome() {
+		List<Pessoa> pessoas = this.repository.buscarTodos();
+		
+		System.out.println("Digite o nome ou parte do nome que deseja pesquisar: ");
+		String fragmentoNome = sc.next().toLowerCase();
+		
+		pessoas.stream().filter(pessoa -> pessoa.getNome().toLowerCase()
+				.contains(fragmentoNome)).forEach(pessoa -> System.out.println(pessoa));
+		
+		System.out.println("Informe o número correspondente à pessoa desejada "
+				+ "(ou '0' para retornar ao menu principal):");
+	}
+	
+	public void pesquisarPorID() {
+		System.out.println("Digite o ID referente ao cadastro que deseja atualizar: ");
+	}
 
 	private void pessoaParaAluno(Pessoa pessoa, double nota) {
 		Pessoa aluno = new Aluno(pessoa.getNome(), pessoa.getTelefone(), pessoa.getDataNascimento(), nota);
@@ -118,6 +135,8 @@ public class Service {
 		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
 	}
 
+	
+	
 	public void atualizarDados(int id) throws SistemaException {
 		Pessoa pessoa = this.repository.buscarPorId(id);
 

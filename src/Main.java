@@ -30,10 +30,16 @@ public class Main {
 					service.mostrarPessoasAlunos(opcaoMostrar);
 					break;
 				case 3:
-					service.mostrarPessoasAlunos(1);
-					System.out.println(""
-							+ "Informe o número correspondente à pessoa que deseja atuaizar "
-							+ "(ou '0' para retornar ao menu principal):");
+					Menu.MENU_PESQUISAR();
+					int opcaoPesquisar = sc.nextInt();					
+					switch (opcaoPesquisar) {
+					case 1:
+						service.pesquisarPorNome();
+					case 2:
+						service.pesquisarPorID();
+					case 0:						
+						break;						
+					}
 					int opcaoId = sc.nextInt();		
 					if (opcaoId == 0) {
 						break;

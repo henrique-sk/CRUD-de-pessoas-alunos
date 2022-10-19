@@ -8,6 +8,8 @@ public class Menu {
 			+ "--------------------------------------------------------\n"
 			+ "Digite a opção desejada:\n";
 	
+	public static final String RETORNAR_MENU = "0 - Retornar ao Menu Principal";
+	
 	public static final void MENU_PRINCIPAL() {
 		System.out.println(""
 				+ "========================================================\n"
@@ -21,12 +23,19 @@ public class Menu {
 	}
 	
 	public static final void MENU_MOSTRAR() {
-		System.out.println(""
-				+ CABECALHO
+		System.out.println(CABECALHO
 				+ "1 - Mostrar todas pessoas\n"
 				+ "2 - Mostrar somente alunos\n"
 				+ "3 - Mostrar todas pessoas que não são alunos\n"
-				+ "0 - Retornar ao Menu Principal");
+				+ RETORNAR_MENU);
+	}
+	
+	
+	public static final void MENU_PESQUISAR() {
+		System.out.println(CABECALHO
+				+ "1 - Pesquisar por nome\n"
+				+ "2 - Pesquisar por id\n"
+				+ RETORNAR_MENU);
 	}
 	
 	public static final void MENU_ATUALIZAR(Pessoa pessoa) {
@@ -37,7 +46,7 @@ public class Menu {
 				+ "2 - Telefone\n"
 				+ "3 - Data de nascimento\n"
 				+ "4 - Inserir/alterar nota final do curso\n"
-				+ "0 - Retornar ao Menu Principal");
+				+ RETORNAR_MENU);
 	}
 
 }
