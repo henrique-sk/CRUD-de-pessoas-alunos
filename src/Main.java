@@ -35,24 +35,42 @@ public class Main {
 					switch (opcaoPesquisar) {
 					case 1:
 						service.pesquisarPorNome();
+						int opcaoId = sc.nextInt();		
+						service.atualizarDados(opcaoId);
+						break;
 					case 2:
 						service.pesquisarPorID();
-					case 0:						
-						break;						
-					}
-					int opcaoId = sc.nextInt();		
-					if (opcaoId == 0) {
+						opcaoId = sc.nextInt();
+						service.atualizarDados(opcaoId);
 						break;
-					}
-					service.atualizarDados(opcaoId);
+					case 0:						
+						break;
+					}					
 					break;
 				case 4:
-					System.out.println(""
-							+ "Informe o número correspondente à pessoa que deseja deletar:");
-					service.mostrarPessoasAlunos(1);
-					opcaoId = sc.nextInt();
-					service.deletarPessoa(opcaoId);
+					Menu.MENU_PESQUISAR();
+					opcaoPesquisar = sc.nextInt();					
+					switch (opcaoPesquisar) {
+					case 1:
+						service.pesquisarPorNome();
+						int opcaoId = sc.nextInt();		
+						service.deletarPessoa(opcaoId);
+						break;
+					case 2:
+						service.pesquisarPorID();
+						opcaoId = sc.nextInt();
+						service.deletarPessoa(opcaoId);
+						break;
+					case 0:						
+						break;
+					}					
 					break;
+//					System.out.println(""
+//							+ "Informe o número correspondente à pessoa que deseja deletar:");
+//					service.mostrarPessoasAlunos(1);
+//					int opcaoId = sc.nextInt();
+//					service.deletarPessoa(opcaoId);
+//					break;
 				case 0:
 					System.out.println("Obrigado por utilizar nosso sistema. Até logo!");
 					continua = false;

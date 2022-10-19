@@ -20,8 +20,6 @@ public class Service {
 	
 	public Service() {		
 		this.repository.salvar(new Pessoa("Luana", "15777777777", Data.stringParaData("12/12/2002")));
-		this.repository.salvar(new Pessoa("Raul", "46444444444", Data.stringParaData("09/09/2002")));
-		repository.buscarPorId(2).setNotaFinal(5.0);
 		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6.0));
 	}
@@ -97,8 +95,10 @@ public class Service {
 
 	public void mostrarPessoasAlunos(int opcao) {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
-
-		System.out.println("Lista selecionada:");
+		
+		if (opcao != 0) {			
+			System.out.println("Lista selecionada:");
+		}
 		if (opcao == 1) {
 			pessoas.stream().forEach(pessoa -> System.out.println(pessoa));
 		} else if (opcao == 2) {
@@ -113,7 +113,7 @@ public class Service {
 	public void pesquisarPorNome() {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
-		System.out.println("Digite o nome ou parte do nome que deseja pesquisar: ");
+		System.out.println("Digite o nome ou parte do nome da pessoa ou aluno(a): ");
 		String fragmentoNome = sc.next().toLowerCase();
 		
 		pessoas.stream().filter(pessoa -> pessoa.getNome().toLowerCase()
@@ -124,7 +124,7 @@ public class Service {
 	}
 	
 	public void pesquisarPorID() {
-		System.out.println("Digite o ID referente ao cadastro que deseja atualizar: ");
+		System.out.println("Digite o ID referente ao cadastro desejado: ");
 	}
 
 	private void pessoaParaAluno(Pessoa pessoa, double nota) {
@@ -141,7 +141,7 @@ public class Service {
 		Pessoa pessoa = this.repository.buscarPorId(id);
 
 		if (pessoa == null) {
-			throw new SistemaException("Pessoa não encontrada!");
+			throw new SistemaException("Pessoa não encontrada!");			
 		}
 		
 		boolean continua = true;
@@ -175,11 +175,24 @@ public class Service {
 		Pessoa pessoa = repository.buscarPorId(opcaoId);
 
 		if (pessoa == null) {
+			
 			throw new SistemaException("Pessoa não encontrada!");
 		}
-		repository.removerPorId(opcaoId);
-
-		System.out.println("Pessoa removida com sucesso!");
+		
+		boolean continua = true;
+		while (continua == true) {
+			System.out.println("Tem certeza que deseja remover permanentemente o cadastro de " + pessoa.getNome() + "?");
+			String remover = sc.next().toUpperCase();
+			if (remover.equals("N")) {
+				System.out.println("Retornando ao Menu Principal!");
+				continua = false;
+			} else if (remover.equals("S")) {
+				repository.removerPorId(opcaoId);
+				System.out.println("Cadastro removido com sucesso!");
+				continua = false;
+			}
+		}
+		
 	}
 
 }
