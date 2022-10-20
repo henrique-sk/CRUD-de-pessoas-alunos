@@ -55,11 +55,12 @@ public class Service {
 
 	private String receberTelefone() {
 		String telefone = "";
-		while (!telefone.matches("[0-9]+") || telefone.length() < 11
-				|| telefone.replaceFirst("0", "").length() > 11) {
+		while (!telefone.matches("[0-9]+") 
+				|| telefone.length() > 11 
+				|| telefone.length() < 11) {
 			System.out.println("Digite o telefone com DDD. "
 				+ "Somente os 11 números (###########): ");
-			telefone = sc.next();
+			telefone = sc.next().replaceFirst("0", "");
 		}
 		return telefone;
 	}
