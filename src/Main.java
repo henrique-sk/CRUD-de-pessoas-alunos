@@ -31,60 +31,34 @@ public class Main {
 					break;
 				case 3:
 					Menu.MENU_BUSCAR();
-					int opcaoBuscar = sc.nextInt();					
+					boolean verificaCadastro = false;
+					int opcaoBuscar = sc.nextInt();
 					switch (opcaoBuscar) {
 					case 1:
-						service.pesquisarPorNome();
-//						int opcaoId = sc.nextInt();		
-//						service.atualizarDados(opcaoId);
+						verificaCadastro = service.pesquisarPorNome();
 						break;
 					case 2:
+//						verificaCadastro = 
 						service.pesquisarPorID();
-//						opcaoId = sc.nextInt();
-//						service.atualizarDados(opcaoId);
 						break;
 					case 0:						
 						break;
 					}
-					if (opcaoBuscar == 1 || opcaoBuscar == 2) {
+					if ( verificaCadastro
+							&& (opcaoBuscar == 1 || opcaoBuscar == 2)) {
 						int cadastroId = sc.nextInt();
 						Menu.MENU_ALTERAR();
 						int opcaoAlteracao = sc.nextInt();
 						switch (opcaoAlteracao) {						
 						case 1:
 							service.atualizarDados(cadastroId);
-							break;
-						
+							break;						
 						case 2:
 							service.deletarPessoa(cadastroId);
 							break;
 						}
 					}
 					break;
-//				case 4:
-//					Menu.MENU_PESQUISAR();
-//					opcaoPesquisar = sc.nextInt();					
-//					switch (opcaoPesquisar) {
-//					case 1:
-//						service.pesquisarPorNome();
-//						int opcaoId = sc.nextInt();		
-//						service.deletarPessoa(opcaoId);
-//						break;
-//					case 2:
-//						service.pesquisarPorID();
-//						opcaoId = sc.nextInt();
-//						service.deletarPessoa(opcaoId);
-//						break;
-//					case 0:						
-//						break;
-//					}					
-//					break;
-//					System.out.println(""
-//							+ "Informe o número correspondente à pessoa que deseja deletar:");
-//					service.mostrarPessoasAlunos(1);
-//					int opcaoId = sc.nextInt();
-//					service.deletarPessoa(opcaoId);
-//					break;
 				case 0:
 					System.out.println("Obrigado por utilizar nosso sistema. Até logo!");
 					continua = false;

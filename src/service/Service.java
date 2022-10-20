@@ -110,20 +110,38 @@ public class Service {
 		}
 	}
 	
-	public void pesquisarPorNome() {
+	public boolean pesquisarPorNome() {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
 		System.out.println("Digite o nome ou parte do nome da pessoa ou aluno(a): ");
 		String fragmentoNome = sc.next().toLowerCase();
 		
-		pessoas.stream().filter(pessoa -> pessoa.getNome().toLowerCase()
-				.contains(fragmentoNome)).forEach(pessoa -> System.out.println(pessoa));
+		double verificaNome = pessoas.stream().filter(pessoa -> pessoa.getNome().toLowerCase()
+				.contains(fragmentoNome)).count();
 		
-		System.out.println("Informe o número correspondente à pessoa desejada "
-				+ "(ou '0' para retornar ao menu principal):");
+		if (verificaNome > 0) {
+			pessoas.stream().filter(pessoa -> pessoa.getNome().toLowerCase()
+					.contains(fragmentoNome)).forEach(pessoa -> System.out.println(pessoa));
+
+			System.out.println("Informe o número correspondente à pessoa desejada "
+					+ "(ou '0' para retornar ao menu principal):");
+			return true;
+		} else {
+			System.out.println("Nenhum cadastro encontrado!");
+			return false;
+		}		
 	}
 	
 	public void pesquisarPorID() {
+//		
+//		
+//		Pessoa pessoa = repository.buscarPorId(opcaoId);
+//
+//		if (pessoa == null) {
+//			
+//			throw new SistemaException("Pessoa não encontrada!");
+//		}
+//		
 		System.out.println("Digite o ID referente ao cadastro desejado: ");
 	}
 
