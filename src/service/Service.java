@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import exception.SistemaException;
 import model.Aluno;
@@ -19,7 +20,7 @@ public class Service {
 	Scanner sc = new Scanner(System.in); // injetar?
 	
 	public Service() {		
-		this.repository.salvar(new Pessoa("Luana", "15777777777", Data.stringParaData("12/12/2002")));
+		this.repository.salvar(new Pessoa("Luana", "15777777777",Data.stringParaData("12/12/2002")));
 		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6.0));
 	}
@@ -55,9 +56,8 @@ public class Service {
 
 	private String receberTelefone() {
 		String telefone = "";
-		while (!telefone.matches("[0-9]+") 
-				|| telefone.length() > 11 
-				|| telefone.length() < 11) {
+		while (!telefone.matches("[0-9]+")
+				|| telefone.length() > 11 || telefone.length() < 11) {
 			System.out.println("Digite o telefone com DDD. "
 				+ "Somente os 11 números (###########): ");
 			telefone = sc.next().replaceFirst("0", "");
@@ -111,26 +111,24 @@ public class Service {
 		}
 	}
 	
-	public boolean pesquisarPorNome() {
-		List<Pessoa> pessoas = this.repository.buscarTodos();
-		
+	public boolean pesquisarPorNome() throws SistemaException {		
 		System.out.println("Digite o nome ou parte do nome da pessoa ou aluno(a): ");
 		String fragmentoNome = sc.next().toLowerCase();
 		
-		double verificaNome = pessoas.stream().filter(pessoa -> pessoa.getNome().toLowerCase()
-				.contains(fragmentoNome)).count();
+		List<Pessoa> verificaNome = this.repository.buscarTodos().stream()
+				.filter(pessoa -> pessoa.getNome().toLowerCase().contains(fragmentoNome))
+				.collect(Collectors.toList());
 		
-		if (verificaNome > 0) {
-			pessoas.stream().filter(pessoa -> pessoa.getNome().toLowerCase()
-					.contains(fragmentoNome)).forEach(pessoa -> System.out.println(pessoa));
-
-			System.out.println("Informe o número correspondente à pessoa desejada "
-					+ "(ou '0' para retornar ao menu principal):");
-			return true;
-		} else {
-			System.out.println("Nenhum cadastro encontrado!");
-			return false;
+		verificaNome.forEach(pessoa -> System.out.println(pessoa));
+		
+		if (verificaNome.size() < 1) {
+			throw new SistemaException("Nenhum cadastro encontrado!");
 		}		
+
+		System.out.println("Informe o número correspondente à pessoa desejada "
+				+ "(ou '0' para retornar ao menu principal):");
+		
+		return true;	
 	}
 	
 	public void pesquisarPorID() {

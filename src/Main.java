@@ -57,6 +57,8 @@ public class Main {
 							service.deletarPessoa(cadastroId);
 							break;
 						}
+					}else {
+						throw new SistemaException("Nenhum cadastro correspondente!");
 					}
 					break;
 				case 0:
