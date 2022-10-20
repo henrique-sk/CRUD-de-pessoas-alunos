@@ -16,7 +16,7 @@ public class Menu {
 				+ "Bem-vindo ao sistema de gerenciamento de cadastros:\n"
 				+ CABECALHO
 				+ "1 - Criar cadastro\n"
-				+ "2 - Mostrar todas cadastros\n"
+				+ "2 - Listagem de cadastros\n"
 				+ "3 - Buscar cadastro\n"
 				+ "0 - Encerrar programa");
 	}
@@ -24,8 +24,8 @@ public class Menu {
 	public static final void MENU_MOSTRAR() {
 		System.out.println(CABECALHO
 				+ "1 - Mostrar todos cadastros\n"
-				+ "2 - Mostrar somente cadastros de alunos\n"
-				+ "3 - Mostrar somente cadastros de não alunos\n"
+				+ "2 - Mostrar somente alunos\n"
+				+ "3 - Mostrar somente não alunos\n"
 				+ RETORNAR_MENU);
 	}
 	

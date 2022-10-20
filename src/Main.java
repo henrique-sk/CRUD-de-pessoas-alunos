@@ -24,29 +24,27 @@ public class Main {
 				case 2:
 					Menu.MENU_MOSTRAR();
 					int opcaoMostrar = sc.nextInt();
-					if (opcaoMostrar < 0 || opcaoMostrar > 3) {
-						throw new SistemaException("Opção inválida!!");
-					}					
+					
+//					if (opcaoMostrar < 0 || opcaoMostrar > 3) {
+//						throw new SistemaException("Opção inválida!!");
+//					}					
 					service.mostrarPessoasAlunos(opcaoMostrar);
 					break;
 				case 3:
 					Menu.MENU_BUSCAR();
-					boolean verificaCadastro = false;
 					int opcaoBuscar = sc.nextInt();
+					int cadastroId = 0;
 					switch (opcaoBuscar) {
 					case 1:
-						verificaCadastro = service.pesquisarPorNome();
+						cadastroId = service.pesquisarPorNome();
 						break;
 					case 2:
-//						verificaCadastro = 
-						service.pesquisarPorID();
+						cadastroId = service.pesquisarPorID();
 						break;
 					case 0:						
 						break;
 					}
-					if ( verificaCadastro
-							&& (opcaoBuscar == 1 || opcaoBuscar == 2)) {
-						int cadastroId = sc.nextInt();
+					if (cadastroId != 0 && (opcaoBuscar == 1 || opcaoBuscar == 2)) {
 						Menu.MENU_ALTERAR();
 						int opcaoAlteracao = sc.nextInt();
 						switch (opcaoAlteracao) {						
@@ -56,9 +54,9 @@ public class Main {
 						case 2:
 							service.deletarPessoa(cadastroId);
 							break;
+						case 0:
+							break;
 						}
-					}else {
-						throw new SistemaException("Nenhum cadastro correspondente!");
 					}
 					break;
 				case 0:

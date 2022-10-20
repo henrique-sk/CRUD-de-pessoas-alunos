@@ -94,11 +94,11 @@ public class Service {
 		return notaFinalOk;
 	}
 
-	public void mostrarPessoasAlunos(int opcao) {
+	public void mostrarPessoasAlunos(int opcao) throws SistemaException {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
 		if (opcao != 0) {			
-			System.out.println("Lista selecionada:");
+			System.out.println("Listagem:");
 		}
 		if (opcao == 1) {
 			pessoas.stream().forEach(pessoa -> System.out.println(pessoa));
@@ -109,9 +109,11 @@ public class Service {
 			pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno))
 				.forEach(pessoa -> System.out.println(pessoa));
 		}
+		
+		this.pesquisarPorID();
 	}
 	
-	public boolean pesquisarPorNome() throws SistemaException {		
+	public int pesquisarPorNome() throws SistemaException {		
 		System.out.println("Digite o nome ou parte do nome da pessoa ou aluno(a): ");
 		String fragmentoNome = sc.next().toLowerCase();
 		
@@ -123,25 +125,30 @@ public class Service {
 		
 		if (verificaNome.size() < 1) {
 			throw new SistemaException("Nenhum cadastro encontrado!");
-		}		
-
-		System.out.println("Informe o número correspondente à pessoa desejada "
-				+ "(ou '0' para retornar ao menu principal):");
+		}
 		
-		return true;	
+		int opcaoIdId = this.pesquisarPorID();
+		return opcaoIdId;	
 	}
 	
-	public void pesquisarPorID() {
-//		
-//		
-//		Pessoa pessoa = repository.buscarPorId(opcaoId);
-//
-//		if (pessoa == null) {
-//			
-//			throw new SistemaException("Pessoa não encontrada!");
-//		}
-//		
-		System.out.println("Digite o ID referente ao cadastro desejado: ");
+	public int pesquisarPorID() throws SistemaException {
+		System.out.println("Informe o ID correspondente à pessoa desejada "
+				+ "(ou '0' para retornar ao menu principal):");
+		int opcaoId = sc.nextInt();
+		
+		if (opcaoId == 0) {
+			throw new SistemaException("Retornando ao Menu Principal!");
+		}
+		
+		Pessoa pessoa = repository.buscarPorId(opcaoId);
+
+		if (pessoa == null) {	
+			throw new SistemaException("Pessoa não encontrada!");
+		}
+		
+		System.out.println("Cadastro selecionado:\n" + pessoa);
+		
+		return opcaoId;
 	}
 
 	private void pessoaParaAluno(Pessoa pessoa, double nota) {
