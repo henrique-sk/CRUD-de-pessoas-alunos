@@ -23,17 +23,20 @@ public class Main {
 					break;
 				case 2:
 					Menu.MENU_MOSTRAR();
-					int opcaoMostrar = sc.nextInt();
-					
-//					if (opcaoMostrar < 0 || opcaoMostrar > 3) {
-//						throw new SistemaException("Opção inválida!!");
-//					}					
+					int opcaoMostrar = sc.nextInt();					
+					if (opcaoMostrar < 0 || opcaoMostrar > 3) {
+						throw new SistemaException("Opção inválida!!");
+					}					
 					service.mostrarPessoasAlunos(opcaoMostrar);
+					int cadastroId = service.pesquisarPorID();
+					if (cadastroId != 0 && (opcaoMostrar >= 1 || opcaoMostrar <= 3)) {
+						service.escolherAlteracao(cadastroId);
+					}
 					break;
 				case 3:
 					Menu.MENU_BUSCAR();
 					int opcaoBuscar = sc.nextInt();
-					int cadastroId = 0;
+					cadastroId = 0;
 					switch (opcaoBuscar) {
 					case 1:
 						cadastroId = service.pesquisarPorNome();
@@ -45,18 +48,7 @@ public class Main {
 						break;
 					}
 					if (cadastroId != 0 && (opcaoBuscar == 1 || opcaoBuscar == 2)) {
-						Menu.MENU_ALTERAR();
-						int opcaoAlteracao = sc.nextInt();
-						switch (opcaoAlteracao) {						
-						case 1:
-							service.atualizarDados(cadastroId);
-							break;						
-						case 2:
-							service.deletarPessoa(cadastroId);
-							break;
-						case 0:
-							break;
-						}
+						service.escolherAlteracao(cadastroId);
 					}
 					break;
 				case 0:
@@ -70,12 +62,10 @@ public class Main {
 			} catch (SistemaException e) {
 				System.out.println(e.getMessage());
 			} catch (InputMismatchException e) {
-				System.out.println("Opção inválida!!");
-				sc.next();
+				System.out.println("Opção yyyyyyyyinválida!!");
 			} finally {
 				Thread.sleep(1500l);
 			}
-
 		} while (continua);
 		sc.close();
 	}

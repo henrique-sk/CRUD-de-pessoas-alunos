@@ -17,7 +17,7 @@ import util.NotaFinal;
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	Repository<Pessoa> repository = new Repository<>();
-	Scanner sc = new Scanner(System.in); // injetar?
+	Scanner sc = new Scanner(System.in);
 	
 	public Service() {		
 		this.repository.salvar(new Pessoa("Luana", "15777777777",Data.stringParaData("12/12/2002")));
@@ -109,8 +109,6 @@ public class Service {
 			pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno))
 				.forEach(pessoa -> System.out.println(pessoa));
 		}
-		
-		this.pesquisarPorID();
 	}
 	
 	public int pesquisarPorNome() throws SistemaException {		
@@ -132,7 +130,7 @@ public class Service {
 	}
 	
 	public int pesquisarPorID() throws SistemaException {
-		System.out.println("Informe o ID correspondente à pessoa desejada "
+		System.out.println("Informe o ID para selecionar o cadastro correspondente "
 				+ "(ou '0' para retornar ao menu principal):");
 		int opcaoId = sc.nextInt();
 		
@@ -159,7 +157,20 @@ public class Service {
 		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
 	}
 
-	
+	public void escolherAlteracao(int id) throws SistemaException {
+		Menu.MENU_ALTERAR();
+		int opcaoAlteracao = sc.nextInt();
+		switch (opcaoAlteracao) {						
+		case 1:
+			atualizarDados(id);
+			break;						
+		case 2:
+			deletarPessoa(id);
+			break;
+		case 0:
+			break;
+		}
+	}	
 	
 	public void atualizarDados(int id) throws SistemaException {
 		Pessoa pessoa = this.repository.buscarPorId(id);
@@ -191,21 +202,19 @@ public class Service {
 				break;
 			}
 			pessoa.setDataAlteracao(new Date());
-
 		} while (continua == true);
 	}
 
 	public void deletarPessoa(int opcaoId) throws SistemaException {
 		Pessoa pessoa = repository.buscarPorId(opcaoId);
 
-		if (pessoa == null) {
-			
+		if (pessoa == null) {			
 			throw new SistemaException("Pessoa não encontrada!");
 		}
 		
 		boolean continua = true;
 		while (continua == true) {
-			System.out.println("Tem certeza que deseja remover permanentemente o cadastro de " + pessoa.getNome() + "?");
+			System.out.println("Tem certeza que deseja remover permanentemente o cadastro de " + pessoa.getNome() + "? (S/N)");
 			String remover = sc.next().toUpperCase();
 			if (remover.equals("N")) {
 				System.out.println("Retornando ao Menu Principal!");
@@ -215,8 +224,7 @@ public class Service {
 				System.out.println("Cadastro removido com sucesso!");
 				continua = false;
 			}
-		}
-		
+		}		
 	}
 
 }
