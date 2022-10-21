@@ -62,7 +62,7 @@ public class Main {
 			} catch (SistemaException e) {
 				System.out.println(e.getMessage());
 			} catch (InputMismatchException e) {
-				System.out.println("Opção yyyyyyyyinválida!!");
+				System.out.println("Opção inválida!!");
 			} finally {
 				Thread.sleep(1500l);
 			}

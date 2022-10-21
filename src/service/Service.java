@@ -168,6 +168,7 @@ public class Service {
 			deletarPessoa(id);
 			break;
 		case 0:
+			System.out.println("Retornando ao Menu Principal!");
 			break;
 		}
 	}	
