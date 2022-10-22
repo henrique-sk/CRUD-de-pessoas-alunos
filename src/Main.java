@@ -16,6 +16,7 @@ public class Main {
 			try {
 				Menu.PRINCIPAL();
 				int opcaoMenu = sc.nextInt();
+				sc.nextLine();
 				switch (opcaoMenu) {
 				case 1:
 					service.criarPessoaAluno();
@@ -24,16 +25,11 @@ public class Main {
 					Menu.MOSTRAR();
 					service.mostrarPessoasAlunos();
 					int cadastroId =  sc.nextInt();
-					if (cadastroId == 0) {
-						break;
-					}
 					service.atualizarDados(cadastroId);;
 					break;
 				case 3:
 					cadastroId = service.pesquisarPorNome();
-					if (cadastroId != 0) {
-						service.atualizarDados(cadastroId);
-					}
+					service.atualizarDados(cadastroId);
 					break;
 				case 4:
 					System.out.println("Digite o ID:");
@@ -52,7 +48,7 @@ public class Main {
 				System.out.println(e.getMessage());
 			} catch (InputMismatchException e) {
 				System.out.println("Opção inválida!!");
-				sc.nextLine();
+				sc.next();
 			} finally {
 				Thread.sleep(1500l);
 			}

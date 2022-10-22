@@ -17,9 +17,10 @@ import util.NotaFinal;
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	Repository<Pessoa> repository = new Repository<>();
-	Scanner sc = new Scanner(System.in);
+	Scanner sc;
 	
-	public Service(Scanner sc) {		
+	public Service(Scanner sc) {
+		this.sc = sc;
 		this.repository.salvar(new Pessoa("Luana", "15777777777",Data.stringParaData("12/12/2002")));
 		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6.0));
@@ -50,8 +51,7 @@ public class Service {
 
 	private String receberNome() {
 		System.out.println("Digite o nome: ");
-		String nome = "";
-		nome = sc.nextLine();
+		String nome = sc.nextLine();
 		return nome;
 	}
 
