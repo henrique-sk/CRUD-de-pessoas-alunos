@@ -97,9 +97,15 @@ public class Service {
 		return notaFinalOk;
 	}
 
-	public void mostrarPessoasAlunos(int opcao) throws SistemaException {
+	public void mostrarPessoasAlunos() throws SistemaException {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 		
+		int opcao = sc.nextInt();					
+		if (opcao == 0) {
+			throw new SistemaException("Retornando ao Menu Principal!!");
+		} else if (opcao < 0 || opcao > 3) {
+			throw new SistemaException("Opção inválida!!");
+		}		
 		if (opcao != 0) {			
 			System.out.println("Listagem:");
 		}
@@ -131,6 +137,10 @@ public class Service {
 			opcaoId = sc.nextInt();
 		} else if (verificaNome.size() == 1) {
 			opcaoId = verificaNome.get(0).getId();
+		} else if (verificaNome.isEmpty()) {
+			throw new SistemaException("Nenhuma ocorrência com '"
+					+ fragmentoNome + "' encontrada!"
+					+ "\nRetornando ao Menu Principal!");
 		}
 		return opcaoId;
 	}
@@ -144,13 +154,13 @@ public class Service {
 	}
 	
 	public void atualizarDados(int id) throws SistemaException {
-		Pessoa pessoa = this.repository.buscarPorId(id);
-
+		Pessoa pessoa = this.repository.buscarPorId(id);		
+		
 		if (pessoa == null) {
 			throw new SistemaException("Pessoa não encontrada!");			
 		}
 		
-		Menu.MENU_ATUALIZAR(pessoa);
+		Menu.ATUALIZAR(pessoa);
 		int entrada;
 		entrada = sc.nextInt();
 		sc.nextLine();

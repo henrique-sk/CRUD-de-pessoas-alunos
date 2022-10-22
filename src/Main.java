@@ -14,21 +14,15 @@ public class Main {
 		boolean continua = true;
 		do {
 			try {
-				Menu.MENU_PRINCIPAL();
+				Menu.PRINCIPAL();
 				int opcaoMenu = sc.nextInt();
 				switch (opcaoMenu) {
 				case 1:
 					service.criarPessoaAluno();
 					break;
 				case 2:
-					Menu.MENU_MOSTRAR();
-					int opcaoMostrar = sc.nextInt();					
-					if (opcaoMostrar == 0) {
-						break;
-					} else if (opcaoMostrar < 0 || opcaoMostrar > 3) {
-						throw new SistemaException("Opção inválida!!");
-					}
-					service.mostrarPessoasAlunos(opcaoMostrar);
+					Menu.MOSTRAR();
+					service.mostrarPessoasAlunos();
 					int cadastroId =  sc.nextInt();
 					if (cadastroId == 0) {
 						break;

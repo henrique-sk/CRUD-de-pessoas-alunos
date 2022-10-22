@@ -10,7 +10,7 @@ public class Menu {
 	
 	public static final String RETORNAR_MENU = "0 - Retornar ao Menu Principal";
 	
-	public static final void MENU_PRINCIPAL() {
+	public static final void PRINCIPAL() {
 		System.out.println(""
 				+ "========================================================\n"
 				+ "Bem-vindo ao sistema de gerenciamento de cadastros:\n"
@@ -22,21 +22,13 @@ public class Menu {
 				+ "0 - Encerrar programa");
 	}
 	
-	public static final void MENU_MOSTRAR() {
+	public static final void MOSTRAR() {
 		System.out.println(CABECALHO
 				+ "1 - Mostrar todos cadastros\n"
 				+ "2 - Mostrar somente alunos\n"
 				+ "3 - Mostrar somente não alunos\n"
 				+ RETORNAR_MENU);
 	}
-	
-	
-//	public static final void MENU_BUSCAR() {
-//		System.out.println(CABECALHO
-//				+ "1 - Buscar por nome\n"
-//				+ "2 - Buscar por ID\n"
-//				+ RETORNAR_MENU);
-//	}
 	
 	public static final void MENU_ALTERAR() {
 		System.out.println(CABECALHO
@@ -45,7 +37,7 @@ public class Menu {
 				+ RETORNAR_MENU);
 	}
 	
-	public static final void MENU_ATUALIZAR(Pessoa pessoa) {
+	public static final void ATUALIZAR(Pessoa pessoa) {
 		System.out.println("Dados atuais do cadastro selecionado:\n"
 				+ pessoa + "\n"
 				+ CABECALHO
