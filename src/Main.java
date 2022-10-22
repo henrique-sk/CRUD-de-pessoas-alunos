@@ -9,14 +9,13 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		Scanner sc = new Scanner(System.in);
-		Service service = new Service();
+		Service service = new Service(sc);
 
 		boolean continua = true;
 		do {
 			try {
 				Menu.MENU_PRINCIPAL();
 				int opcaoMenu = sc.nextInt();
-				sc.nextLine();
 				switch (opcaoMenu) {
 				case 1:
 					service.criarPessoaAluno();
@@ -24,12 +23,18 @@ public class Main {
 				case 2:
 					Menu.MENU_MOSTRAR();
 					int opcaoMostrar = sc.nextInt();					
-					if (opcaoMostrar < 0 || opcaoMostrar > 3) {
+					if (opcaoMostrar == 0) {
+						break;
+					} else if (opcaoMostrar < 0 || opcaoMostrar > 3) {
 						throw new SistemaException("Opção inválida!!");
-					}					
+					}
 					service.mostrarPessoasAlunos(opcaoMostrar);
-					int cadastroId = service.pesquisarPorID();
-					if (cadastroId != 0 && (opcaoMostrar >= 1 || opcaoMostrar <= 3)) {
+					sc.nextLine();
+					int cadastroId =  sc.nextInt();
+					if (cadastroId == 0) {
+						break;
+					}
+					if (opcaoMostrar >= 1 || opcaoMostrar <= 3) {
 						service.escolherAlteracao(cadastroId);
 					}
 					break;
@@ -42,12 +47,13 @@ public class Main {
 						cadastroId = service.pesquisarPorNome();
 						break;
 					case 2:
-						cadastroId = service.pesquisarPorID();
+						System.out.println("difite o ID");
+						cadastroId = sc.nextInt();
 						break;
 					case 0:						
 						break;
 					}
-					if (cadastroId != 0 && (opcaoBuscar == 1 || opcaoBuscar == 2)) {
+					if (opcaoBuscar == 1 || opcaoBuscar == 2) {
 						service.escolherAlteracao(cadastroId);
 					}
 					break;
@@ -63,11 +69,11 @@ public class Main {
 				System.out.println(e.getMessage());
 			} catch (InputMismatchException e) {
 				System.out.println("Opção inválida!!");
+				sc.nextLine();
 			} finally {
 				Thread.sleep(1500l);
 			}
 		} while (continua);
-		sc.close();
 	}
 
 }
