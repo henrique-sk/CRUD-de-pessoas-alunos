@@ -22,19 +22,13 @@ public class Main {
 					service.criarPessoaAluno();
 					break;
 				case 2:
-					Menu.MOSTRAR();
 					service.mostrarPessoasAlunos();
-					int cadastroId =  sc.nextInt();
-					service.atualizarDados(cadastroId);;
 					break;
 				case 3:
-					cadastroId = service.pesquisarPorNome();
-					service.atualizarDados(cadastroId);
+					service.pesquisarPorNome();
 					break;
 				case 4:
-					System.out.println("Digite o ID:");
-					cadastroId = sc.nextInt();
-					service.atualizarDados(cadastroId);
+					service.atualizarDados(service.receberId());
 					break;
 				case 0:
 					System.out.println("Obrigado por utilizar nosso sistema. Até logo!");
