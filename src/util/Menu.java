@@ -17,7 +17,8 @@ public class Menu {
 				+ CABECALHO
 				+ "1 - Criar cadastro\n"
 				+ "2 - Listagem de cadastros\n"
-				+ "3 - Buscar cadastro\n"
+				+ "3 - Buscar por nome\n"
+				+ "4 - Buscar por ID\n"
 				+ "0 - Encerrar programa");
 	}
 	
@@ -30,12 +31,12 @@ public class Menu {
 	}
 	
 	
-	public static final void MENU_BUSCAR() {
-		System.out.println(CABECALHO
-				+ "1 - Buscar por nome\n"
-				+ "2 - Buscar por ID\n"
-				+ RETORNAR_MENU);
-	}
+//	public static final void MENU_BUSCAR() {
+//		System.out.println(CABECALHO
+//				+ "1 - Buscar por nome\n"
+//				+ "2 - Buscar por ID\n"
+//				+ RETORNAR_MENU);
+//	}
 	
 	public static final void MENU_ALTERAR() {
 		System.out.println(CABECALHO
@@ -48,10 +49,11 @@ public class Menu {
 		System.out.println("Dados atuais do cadastro selecionado:\n"
 				+ pessoa + "\n"
 				+ CABECALHO
-				+ "1 - Nome\n"
-				+ "2 - Telefone\n"
-				+ "3 - Data de nascimento\n"
+				+ "1 - Alterar nome\n"
+				+ "2 - Alterar telefone\n"
+				+ "3 - Alterar data de nascimento\n"
 				+ "4 - Inserir/alterar nota final do curso\n"
+				+ "5 - Remover cadastro\n"
 				+ RETORNAR_MENU);
 	}
 

@@ -26,7 +26,7 @@ public class Service {
 	}
 
 	public void criarPessoaAluno() {
-		System.out.println("Cadastramento de pessoa/aluno.");
+		System.out.println("Cadastramento:");
 		String nome = receberNome();
 		String telefone = receberTelefone();
 		Date dataNascimento = receberDataNascimento();
@@ -124,14 +124,15 @@ public class Service {
 				.filter(pessoa -> pessoa.getNome().toLowerCase().contains(fragmentoNome))
 				.collect(Collectors.toList());
 		
-		verificaNome.forEach(pessoa -> System.out.println(pessoa));
-		
-		if (verificaNome.size() < 1) {
-			throw new SistemaException("Nenhum ooo cadastro encontrado!");
+		int opcaoId = 0;
+		if (verificaNome.size() > 1) {
+			verificaNome.forEach(pessoa -> System.out.println(pessoa));
+			System.out.println("Informe o ID do cadastro que deseja selecionar:");
+			opcaoId = sc.nextInt();
+		} else if (verificaNome.size() == 1) {
+			opcaoId = verificaNome.get(0).getId();
 		}
-		
-		int opcaoIdId = sc.nextInt();
-		return opcaoIdId;	
+		return opcaoId;
 	}
 
 	private void pessoaParaAluno(Pessoa pessoa, double nota) {
@@ -141,29 +142,6 @@ public class Service {
 		this.repository.removerPorId(pessoa.getId());
 		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
 	}
-
-	public void escolherAlteracao(int id) throws SistemaException {
-		Pessoa pessoa = this.repository.buscarPorId(id);
-
-		if (pessoa == null) {
-			throw new SistemaException("Pessoa não encontrada!");			
-		}
-		
-		Menu.MENU_ALTERAR();
-		int opcaoAlteracao = sc.nextInt();
-		sc.nextLine();
-		switch (opcaoAlteracao) {						
-		case 1:
-			atualizarDados(id);
-			break;						
-		case 2:
-			deletarPessoa(id);
-			break;
-		case 0:
-			System.out.println("Retornando ao Menu Principal!");
-			break;
-		}
-	}	
 	
 	public void atualizarDados(int id) throws SistemaException {
 		Pessoa pessoa = this.repository.buscarPorId(id);
@@ -189,15 +167,20 @@ public class Service {
 			} else {
 				this.pessoaParaAluno(pessoa, this.receberNotaFinal());
 			}
+		} else if (entrada == 5) {
+			this.deletarPessoa(id);
 		}
-		pessoa.setDataAlteracao(new Date());		
+		pessoa.setDataAlteracao(new Date());
+		if (entrada >= 1 && entrada <= 4) {
+			System.out.println("Cadastro atualizado com sucesso!!");			
+		}
 	}
 
 	public void deletarPessoa(int opcaoId) throws SistemaException {
 		Pessoa pessoa = repository.buscarPorId(opcaoId);
 
 		if (pessoa == null) {			
-			throw new SistemaException("Pessoa não encontrada!");
+			throw new SistemaException("Cadastro não encontrada!");
 		}
 		
 		boolean continua = true;

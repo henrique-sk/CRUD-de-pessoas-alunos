@@ -29,33 +29,22 @@ public class Main {
 						throw new SistemaException("Opção inválida!!");
 					}
 					service.mostrarPessoasAlunos(opcaoMostrar);
-					sc.nextLine();
 					int cadastroId =  sc.nextInt();
 					if (cadastroId == 0) {
 						break;
 					}
-					if (opcaoMostrar >= 1 || opcaoMostrar <= 3) {
-						service.escolherAlteracao(cadastroId);
-					}
+					service.atualizarDados(cadastroId);;
 					break;
 				case 3:
-					Menu.MENU_BUSCAR();
-					int opcaoBuscar = sc.nextInt();
-					cadastroId = 0;
-					switch (opcaoBuscar) {
-					case 1:
-						cadastroId = service.pesquisarPorNome();
-						break;
-					case 2:
-						System.out.println("difite o ID");
-						cadastroId = sc.nextInt();
-						break;
-					case 0:						
-						break;
+					cadastroId = service.pesquisarPorNome();
+					if (cadastroId != 0) {
+						service.atualizarDados(cadastroId);
 					}
-					if (opcaoBuscar == 1 || opcaoBuscar == 2) {
-						service.escolherAlteracao(cadastroId);
-					}
+					break;
+				case 4:
+					System.out.println("Digite o ID:");
+					cadastroId = sc.nextInt();
+					service.atualizarDados(cadastroId);
 					break;
 				case 0:
 					System.out.println("Obrigado por utilizar nosso sistema. Até logo!");
