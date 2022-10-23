@@ -153,50 +153,62 @@ public class Service {
 	public void atualizarDados(int id) throws SistemaException {
 		Pessoa pessoa = this.verificarIdRepository(id);
 
-		Menu.ATUALIZAR(pessoa);
-		int opcao;
-		opcao = sc.nextInt();
-		sc.nextLine();
-		if (opcao == 1) {
-			pessoa.setNome(receberNome());
-		} else if (opcao == 2) {
-			pessoa.setTelefone(receberTelefone());
-		} else if (opcao == 3) {
-			pessoa.setDataNascimento(receberDataNascimento());
-		} else if (opcao == 4) {
-			if (pessoa instanceof Aluno) {
-				Aluno aluno = (Aluno) pessoa;
-				aluno.setNotaFinal(receberNotaFinal());
-			} else {
-				this.pessoaParaAluno(pessoa, this.receberNotaFinal());
+		int opcaoMenu;
+		boolean continua = true;
+		boolean virouAluno = false;
+		while(continua == true) {
+			Menu.ATUALIZAR(pessoa);
+			opcaoMenu = sc.nextInt();
+			sc.nextLine();
+			if (opcaoMenu == 1) {
+				pessoa.setNome(receberNome());
+			} else if (opcaoMenu == 2) {
+				pessoa.setTelefone(receberTelefone());
+			} else if (opcaoMenu == 3) {
+				pessoa.setDataNascimento(receberDataNascimento());
+			} else if (opcaoMenu == 4) {
+				if (pessoa instanceof Aluno) {
+					Aluno aluno = (Aluno) pessoa;
+					aluno.setNotaFinal(receberNotaFinal());
+				} else {
+					Aluno aluno = this.pessoaParaAluno(pessoa, this.receberNotaFinal());
+					virouAluno = true;
+					pessoa = aluno;
+				}
+			} else if (opcaoMenu == 5) {
+				this.deletarPessoa(pessoa.getId());
+				break;
+			} else if (opcaoMenu == 0) {
+				continua = false;
+				throw new SistemaException("Retornando ao Menu Principal!");
+			} else if (opcaoMenu < 0 || opcaoMenu > 5) {
+				System.out.println("Opção inválida!!");
 			}
-		} else if (opcao == 5) {
-			this.deletarPessoa(pessoa.getId());
-		} else if (opcao == 0) {
-			throw new SistemaException("Retornando ao Menu Principal!");
-		} else if (opcao < 0 || opcao > 5) {
-			throw new SistemaException("Opção inválida!!");
-		}
-		pessoa.setDataAlteracao(new Date());
-		if (opcao >= 1 && opcao <= 4) {
-			System.out.println("Cadastro atualizado com sucesso!!");
+			if (virouAluno == true) {
+				System.out.println("Agora " + pessoa.getNome() + " é um(a) aluno(a)!");
+				virouAluno = false;
+			} else {
+				System.out.println("Atualizado com sucesso!");				
+			}
+			pessoa.setDataAlteracao(new Date());			
 		}
 	}
 
 	private Pessoa verificarIdRepository(int id) throws SistemaException {
 		Pessoa pessoa = this.repository.buscarPorId(id);		
 		if (pessoa == null) {
-			throw new SistemaException("Pessoa não encontrada!");
+			throw new SistemaException("Cadastro não encontrado!");
 		}
 		return pessoa;
 	}
 	
-	private void pessoaParaAluno(Pessoa pessoa, double nota) {
+	private Aluno pessoaParaAluno(Pessoa pessoa, double nota) {
 		Pessoa aluno = new Aluno(pessoa.getNome(), pessoa.getTelefone(), pessoa.getDataNascimento(), nota);
 		this.repository.salvar(aluno);
 		aluno.setDataCadastro(pessoa.getDataCadastro());
 		this.repository.removerPorId(pessoa.getId());
 		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
+		return (Aluno) aluno;
 	}
 
 	private void deletarPessoa(int id) throws SistemaException {
