@@ -4,8 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import util.Contador;
-import util.Data;
-import util.Telefone;
+import util.Formatadores;
 
 public class Pessoa implements Banco {
 	
@@ -29,10 +28,6 @@ public class Pessoa implements Banco {
 
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -67,10 +62,6 @@ public class Pessoa implements Banco {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Date getDataAlteracao() {
-		return dataAlteracao;
-	}
-
 	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
@@ -79,10 +70,10 @@ public class Pessoa implements Banco {
 	public String toString() {
 		return this.id
 				+ " - "	+ this.nome
-				+ " - Fone: " + Telefone.formataFone(this.telefone)
-				+ " - Nasc: " + Data.formataNascimento(this.dataNascimento)
-				+ " - Data do Cadastro: " + Data.formataData(this.dataCadastro)
-				+ " - Última Alteração: " + Data.formataData(this.dataAlteracao);
+				+ " - Fone: " + Formatadores.formataFone(this.telefone)
+				+ " - Nasc: " + Formatadores.formataNascimento(this.dataNascimento)
+				+ " - Data do Cadastro: " + Formatadores.formataData(this.dataCadastro)
+				+ " - Última Alteração: " + Formatadores.formataData(this.dataAlteracao);
 	}
 
 }

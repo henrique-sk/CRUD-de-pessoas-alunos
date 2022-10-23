@@ -10,9 +10,8 @@ import exception.SistemaException;
 import model.Aluno;
 import model.Pessoa;
 import repository.Repository;
-import util.Data;
+import util.Formatadores;
 import util.Menu;
-import util.NotaFinal;
 
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -21,9 +20,9 @@ public class Service {
 
 	public Service(Scanner sc) {
 		this.sc = sc;
-		this.repository.salvar(new Pessoa("Luana", "15777777777", Data.stringParaData("12/12/2002")));
-		this.repository.salvar(new Aluno("Tamires", "42333333333", Data.stringParaData("10/10/1990"), 9.65));
-		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6.0));
+		this.repository.salvar(new Pessoa("Luana", "15777777777", Formatadores.stringParaData("12/12/2002")));
+		this.repository.salvar(new Aluno("Tamires", "42333333333", Formatadores.stringParaData("10/10/1990"), 9.65));
+		this.repository.salvar(new Aluno("Lucas", "55222222222", Formatadores.stringParaData("02/02/1956"), 6.0));
 	}
 
 	public void criarCadastro() {
@@ -86,7 +85,7 @@ public class Service {
 		String notaString = "";
 		double notaDouble = -1;
 		while (notaDouble == -1) {
-			if (NotaFinal.isNumeric(notaString)
+			if (Formatadores.isNumeric(notaString)
 					&& (Double.parseDouble(notaString) >= 0
 					&& Double.parseDouble(notaString) <= 10)) {
 				notaDouble = Double.parseDouble(notaString);

@@ -4,9 +4,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
-public class Data {
-	
+import javax.swing.text.MaskFormatter;
+
+public class Formatadores {
+	// FORMATADORES DE DATAS
 	public static Date stringParaData(String data) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
 		
@@ -33,4 +36,26 @@ public class Data {
 		
 		return data;
 	}
+	
+	// FORMATADOR DE NOTA
+	public static boolean isNumeric(String nota) {
+		Pattern padrao = Pattern.compile("-?\\d+(\\.\\d+)?");
+	    if (nota == null) {
+	        return false; 
+	    }
+	    return padrao.matcher(nota).matches();
+	}
+
+	//FORMATADOR DE TELEFONE
+	public static String formataFone(String telefone) {
+		MaskFormatter mf;
+		try {
+			mf = new MaskFormatter("(##) #####-####");
+			mf.setValueContainsLiteralCharacters(false);
+			return mf.valueToString(telefone);
+		} catch (ParseException e) {
+			return telefone;
+		}
+	}
+	
 }

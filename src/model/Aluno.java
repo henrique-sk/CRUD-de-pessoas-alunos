@@ -17,10 +17,6 @@ public class Aluno extends Pessoa {
 		this.dataAlteracao = hoje;
 	}
 
-	public double getNotaFinal() {
-		return notaFinal;
-	}
-
 	public void setNotaFinal(double notaFinal) {
 		this.notaFinal = notaFinal;
 	}
