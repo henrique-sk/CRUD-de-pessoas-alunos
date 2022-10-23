@@ -26,7 +26,7 @@ public class Service {
 		this.repository.salvar(new Aluno("Lucas", "55222222222", Data.stringParaData("02/02/1956"), 6.0));
 	}
 
-	public void criarPessoaAluno() {
+	public void criarCadastro() {
 		System.out.println("Cadastramento:");
 		String nome = receberNome();
 		String telefone = receberTelefone();
@@ -57,9 +57,12 @@ public class Service {
 
 	private String receberTelefone() {
 		String telefone = "";
-		while (!telefone.matches("[0-9]+") || telefone.length() > 11 || telefone.length() < 11) {
-			System.out.println("Digite o telefone com DDD. " + "Somente os 11 números (###########): ");
-			telefone = sc.next().replaceFirst("0", "");
+		while (!telefone.matches("[0-9]+")
+				|| telefone.length() > 11
+				|| telefone.length() < 11) {
+			System.out.println("Digite o telefone com DDD."
+					+ "Somente os 11 números (###########): ");
+			telefone = sc.nextLine().replaceFirst("0", "");
 		}
 		return telefone;
 	}
@@ -80,25 +83,25 @@ public class Service {
 	}
 
 	private Double receberNotaFinal() {
-		String notaFinal = "";
-		double notaFinalOk = -1;
-		while (notaFinalOk == -1) {
-			if (NotaFinal.isNumeric(notaFinal)
-					&& (Double.parseDouble(notaFinal) >= 0 && Double.parseDouble(notaFinal) <= 10)) {
-				notaFinalOk = Double.parseDouble(notaFinal);
+		String notaString = "";
+		double notaDouble = -1;
+		while (notaDouble == -1) {
+			if (NotaFinal.isNumeric(notaString)
+					&& (Double.parseDouble(notaString) >= 0
+					&& Double.parseDouble(notaString) <= 10)) {
+				notaDouble = Double.parseDouble(notaString);
 			} else {
 				System.out.println("Digite a nota final do curso: (entre 0 e 10)");
-				notaFinal = sc.nextLine().replace(",", ".");
+				notaString = sc.nextLine().replace(",", ".");
 			}
 		}
-		return notaFinalOk;
+		return notaDouble;
 	}
 
-	public void mostrarPessoasAlunos() throws SistemaException {
+	public void listarCadastros() throws SistemaException {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 
 		Menu.MOSTRAR();
-
 		int opcao = sc.nextInt();
 		if (opcao < 0 || opcao > 3) {
 			throw new SistemaException("Opção inválida!!");
@@ -109,9 +112,11 @@ public class Service {
 		if (opcao == 1) {
 			pessoas.stream().forEach(pessoa -> System.out.println(pessoa));
 		} else if (opcao == 2) {
-			pessoas.stream().filter(pessoa -> pessoa instanceof Aluno).forEach(aluno -> System.out.println(aluno));
+			pessoas.stream().filter(pessoa -> pessoa instanceof Aluno)
+				.forEach(aluno -> System.out.println(aluno));
 		} else if (opcao == 3) {
-			pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno)).forEach(pessoa -> System.out.println(pessoa));
+			pessoas.stream().filter(pessoa -> !(pessoa instanceof Aluno))
+				.forEach(pessoa -> System.out.println(pessoa));
 		}
 		this.atualizarDados(this.receberId());
 	}
@@ -120,26 +125,19 @@ public class Service {
 		System.out.println("Digite o nome ou parte do nome da pessoa ou aluno(a): ");
 		String fragmentoNome = sc.next().toLowerCase();
 
-		List<Pessoa> verificaNome = this.repository.buscarTodos().stream()
+		List<Pessoa> pessoas = this.repository.buscarTodos().stream()
 				.filter(pessoa -> pessoa.getNome().toLowerCase().contains(fragmentoNome)).collect(Collectors.toList());
 
-		if (verificaNome.size() > 1) {
-			verificaNome.forEach(pessoa -> System.out.println(pessoa));
+		if (pessoas.size() > 1) {
+			pessoas.forEach(pessoa -> System.out.println(pessoa));
 			this.atualizarDados(this.receberId());
-		} else if (verificaNome.size() == 1) {
-			this.atualizarDados(verificaNome.get(0).getId());
-		} else if (verificaNome.isEmpty()) {
+		} else if (pessoas.size() == 1) {
+			this.atualizarDados(pessoas.get(0).getId());
+		} else if (pessoas.isEmpty()) {
 			throw new SistemaException(
-					"Nenhuma ocorrência com '" + fragmentoNome + "' encontrada!" + "\nRetornando ao Menu Principal!");
+					"Nenhuma ocorrência com '" + fragmentoNome + "' encontrada!\n"
+							+ "Retornando ao Menu Principal!");
 		}
-	}
-
-	private void pessoaParaAluno(Pessoa pessoa, double nota) {
-		Pessoa aluno = new Aluno(pessoa.getNome(), pessoa.getTelefone(), pessoa.getDataNascimento(), nota);
-		this.repository.salvar(aluno);
-		aluno.setDataCadastro(pessoa.getDataCadastro());
-		this.repository.removerPorId(pessoa.getId());
-		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
 	}
 
 	public int receberId() throws SistemaException {
@@ -151,50 +149,58 @@ public class Service {
 		}
 		return id;
 	}
-
+	
 	public void atualizarDados(int id) throws SistemaException {
-		Pessoa pessoa = this.repository.buscarPorId(id);
-		
-		if (pessoa == null) {
-			throw new SistemaException("Pessoa não encontrada!");
-		}
+		Pessoa pessoa = this.verificarIdRepository(id);
 
 		Menu.ATUALIZAR(pessoa);
-		int entrada;
-		entrada = sc.nextInt();
+		int opcao;
+		opcao = sc.nextInt();
 		sc.nextLine();
-		if (entrada == 1) {
+		if (opcao == 1) {
 			pessoa.setNome(receberNome());
-		} else if (entrada == 2) {
+		} else if (opcao == 2) {
 			pessoa.setTelefone(receberTelefone());
-		} else if (entrada == 3) {
+		} else if (opcao == 3) {
 			pessoa.setDataNascimento(receberDataNascimento());
-		} else if (entrada == 4) {
+		} else if (opcao == 4) {
 			if (pessoa instanceof Aluno) {
 				Aluno aluno = (Aluno) pessoa;
 				aluno.setNotaFinal(receberNotaFinal());
 			} else {
 				this.pessoaParaAluno(pessoa, this.receberNotaFinal());
 			}
-		} else if (entrada == 5) {
+		} else if (opcao == 5) {
 			this.deletarPessoa(pessoa.getId());
-		} else if (entrada == 0) {
+		} else if (opcao == 0) {
 			throw new SistemaException("Retornando ao Menu Principal!");
-		} else if (entrada < 0 || entrada > 5) {
+		} else if (opcao < 0 || opcao > 5) {
 			throw new SistemaException("Opção inválida!!");
 		}
 		pessoa.setDataAlteracao(new Date());
-		if (entrada >= 1 && entrada <= 4) {
+		if (opcao >= 1 && opcao <= 4) {
 			System.out.println("Cadastro atualizado com sucesso!!");
 		}
 	}
 
-	public void deletarPessoa(int opcaoId) throws SistemaException {
-		Pessoa pessoa = repository.buscarPorId(opcaoId);
-
+	private Pessoa verificarIdRepository(int id) throws SistemaException {
+		Pessoa pessoa = this.repository.buscarPorId(id);		
 		if (pessoa == null) {
-			throw new SistemaException("Cadastro não encontrada!");
+			throw new SistemaException("Pessoa não encontrada!");
 		}
+		return pessoa;
+	}
+	
+	private void pessoaParaAluno(Pessoa pessoa, double nota) {
+		Pessoa aluno = new Aluno(pessoa.getNome(), pessoa.getTelefone(), pessoa.getDataNascimento(), nota);
+		this.repository.salvar(aluno);
+		aluno.setDataCadastro(pessoa.getDataCadastro());
+		this.repository.removerPorId(pessoa.getId());
+		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
+	}
+
+	private void deletarPessoa(int id) throws SistemaException {
+		Pessoa pessoa = this.verificarIdRepository(id);
 
 		boolean continua = true;
 		while (continua == true) {
@@ -205,7 +211,7 @@ public class Service {
 				System.out.println("Retornando ao Menu Principal!");
 				continua = false;
 			} else if (remover.equals("S")) {
-				repository.removerPorId(opcaoId);
+				repository.removerPorId(id);
 				System.out.println("Cadastro removido com sucesso!");
 				continua = false;
 			}

@@ -19,10 +19,10 @@ public class Main {
 				sc.nextLine();
 				switch (opcaoMenu) {
 				case 1:
-					service.criarPessoaAluno();
+					service.criarCadastro();
 					break;
 				case 2:
-					service.mostrarPessoasAlunos();
+					service.listarCadastros();
 					break;
 				case 3:
 					service.pesquisarPorNome();
