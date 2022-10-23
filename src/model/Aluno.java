@@ -8,7 +8,7 @@ import util.Telefone;
 public class Aluno extends Pessoa {
 	
 	Date hoje = new Date();
-	public double notaFinal;
+	double notaFinal;
 
 	public Aluno(String nome, String telefone, Date dataNascimento, double notaFinal) {
 		super(nome, telefone, dataNascimento);
@@ -17,23 +17,14 @@ public class Aluno extends Pessoa {
 		this.dataAlteracao = hoje;
 	}
 
-	public double getNotaFinal() {
-		return notaFinal;
-	}
-
 	public void setNotaFinal(double notaFinal) {
 		this.notaFinal = notaFinal;
 	}
 
 	@Override
 	public String toString() {
-		return this.id
-				+ " - "	+ this.nome
-				+ " - Nota Final: " + String.format("%.2f", this.notaFinal)
-				+ " - Fone: " + Telefone.formataFone(this.telefone)
-				+ " - Nasc: " + Data.formataNascimento(this.dataNascimento)
-				+ " - Data do Cadastro: " + Data.formataData(this.dataCadastro)
-				+ " - Última Alteração: " + Data.formataData(this.dataAlteracao);
+		return super.toString()
+				+ " - Nota Final: " + String.format("%.2f", this.notaFinal);
 	}	
 
 }
