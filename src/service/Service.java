@@ -1,11 +1,14 @@
 package service;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import Cadastros.Cadastros;
 import exception.SistemaException;
 import model.Aluno;
 import model.Pessoa;
@@ -16,13 +19,11 @@ import util.Strings;
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	Repository<Pessoa> repository = new Repository<>();
+	Cadastros cadastros = new Cadastros(repository);
 	Scanner sc;
 
 	public Service(Scanner sc) {
 		this.sc = sc;
-		this.repository.salvar(new Pessoa("Luana", "15777777777", Formatadores.stringParaData("12/12/2002")));
-		this.repository.salvar(new Aluno("Tamires", "42333333333", Formatadores.stringParaData("10/10/1990"), 9.65));
-		this.repository.salvar(new Aluno("Lucas", "55222222222", Formatadores.stringParaData("02/02/1956"), 6.0));
 	}
 
 	public void criarCadastro() {
@@ -97,7 +98,8 @@ public class Service {
 	}
 
 	public void listarCadastros() throws SistemaException {
-		List<Pessoa> pessoas = this.repository.buscarTodos();
+		List<Pessoa> pessoas = this.ordenarStream(this.repository.buscarTodos())
+				.collect(Collectors.toList());
 
 		System.out.println(Strings.MENU_CADASTROS.toString());
 		int opcao = sc.nextInt();
@@ -121,6 +123,15 @@ public class Service {
 		this.atualizarDados(this.receberId());
 	}
 	
+	private Stream<Pessoa> ordenarStream(List<Pessoa> list) {
+		Stream<Pessoa> ordenadas = this.repository.buscarTodos()
+				.stream().sorted(Comparator.comparing(Pessoa::getNome,Comparator
+				.comparing((String s) -> !s.equals("None"))
+				.thenComparing(Comparator.naturalOrder())));
+		
+		return ordenadas;
+	}
+	
 	public int receberId() throws SistemaException {
 		System.out.println(Strings.INFORME_ID.toString());
 		int id = sc.nextInt();
@@ -132,10 +143,11 @@ public class Service {
 
 	public void pesquisarPorNome() throws SistemaException {
 		System.out.println(Strings.INFORME_NOME.toString());
-		String fragmentoNome = sc.next().toLowerCase();
-
-		List<Pessoa> pessoas = this.repository.buscarTodos().stream()
-				.filter(pessoa -> pessoa.getNome().toLowerCase().contains(fragmentoNome)).collect(Collectors.toList());
+		String fragmentoNome = sc.next().toLowerCase();		
+		
+		List<Pessoa> pessoas = this.ordenarStream(this.repository.buscarTodos())
+				.filter(pessoa -> pessoa.getNome().toLowerCase().contains(fragmentoNome))
+				.collect(Collectors.toList());
 
 		if (pessoas.size() > 1) {
 			pessoas.forEach(pessoa -> System.out.println(pessoa));
@@ -192,7 +204,6 @@ public class Service {
 			}
 			pessoa.setDataAlteracao(new Date());			
 		}
-
 	}
 	
 	private Pessoa verificarIdRepository(int id) throws SistemaException {
