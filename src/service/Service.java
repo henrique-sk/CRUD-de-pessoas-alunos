@@ -194,6 +194,7 @@ public class Service {
 		}
 
 	}
+	
 	private Pessoa verificarIdRepository(int id) throws SistemaException {
 		Pessoa pessoa = this.repository.buscarPorId(id);		
 		if (pessoa == null) {
@@ -214,19 +215,16 @@ public class Service {
 	private void deletarPessoa(int id) throws SistemaException {
 		Pessoa pessoa = this.verificarIdRepository(id);
 
-		boolean continua = true;
-		while (continua == true) {
-			System.out.println(Strings.REMOVER_CADASTRO.toString()
-					 + pessoa.getNome() + Strings.REMOVER_CADASTRO_2.toString());
-			String remover = sc.next().toUpperCase();
-			if (remover.equals("N")) {
-				System.out.println(Strings.RETORNANDO_MENU.toString());
-				continua = false;
-			} else if (remover.equals("S")) {
-				repository.removerPorId(id);
-				System.out.println(Strings.REMOVIDO.toString());
-				continua = false;
-			}
+		System.out.println(Strings.REMOVER_CADASTRO.toString()
+				+ pessoa.getNome() + Strings.REMOVER_CADASTRO_2.toString());
+		String remover = sc.next().toUpperCase();
+		if (remover.equals("N")) {
+			System.out.println(Strings.RETORNANDO_MENU.toString());
+		} else if (remover.equals("S")) {
+			repository.removerPorId(id);
+			System.out.println(Strings.REMOVIDO.toString());
+		} else {
+			throw new SistemaException(Strings.OPCAO_INVALIDA_RETORNANDO.toString());
 		}
 	}
 
