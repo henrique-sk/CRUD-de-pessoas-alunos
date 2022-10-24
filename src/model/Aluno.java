@@ -2,9 +2,6 @@ package model;
 
 import java.util.Date;
 
-import util.Data;
-import util.Telefone;
-
 public class Aluno extends Pessoa {
 	
 	Date hoje = new Date();

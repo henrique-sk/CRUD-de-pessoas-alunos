@@ -72,7 +72,7 @@ public class Pessoa implements Banco {
 				+ " - "	+ this.nome
 				+ " - Fone: " + Formatadores.formataFone(this.telefone)
 				+ " - Nasc: " + Formatadores.formataNascimento(this.dataNascimento)
-				+ " - Data do Cadastro: " + Formatadores.formataData(this.dataCadastro)
+				+ " - Cadastrado em: " + Formatadores.formataData(this.dataCadastro)
 				+ " - Última Alteração: " + Formatadores.formataData(this.dataAlteracao);
 	}
 
