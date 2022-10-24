@@ -9,7 +9,9 @@ import java.util.regex.Pattern;
 import javax.swing.text.MaskFormatter;
 
 public class Formatadores {
-	// FORMATADORES DE DATAS
+	/* 
+	 * FORMATADORES DE DATAS 
+	 */
 	public static Date stringParaData(String data) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
 		
@@ -37,7 +39,9 @@ public class Formatadores {
 		return data;
 	}
 	
-	// FORMATADOR DE NOTA
+	/* 
+	 * FORMATADOR DE NOTA
+	 */
 	public static boolean isNumeric(String nota) {
 		Pattern padrao = Pattern.compile("-?\\d+(\\.\\d+)?");
 	    if (nota == null) {
@@ -46,7 +50,9 @@ public class Formatadores {
 	    return padrao.matcher(nota).matches();
 	}
 
-	//FORMATADOR DE TELEFONE
+	/*
+	 * FORMATADOR DE TELEFONE
+	 */
 	public static String formataFone(String telefone) {
 		MaskFormatter mf;
 		try {

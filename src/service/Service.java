@@ -11,7 +11,7 @@ import model.Aluno;
 import model.Pessoa;
 import repository.Repository;
 import util.Formatadores;
-import util.Menu;
+import util.Strings;
 
 public class Service {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -26,7 +26,7 @@ public class Service {
 	}
 
 	public void criarCadastro() {
-		System.out.println("Cadastramento:");
+		System.out.println(Strings.CADASTRAMENTO.toString());
 		String nome = receberNome();
 		String telefone = receberTelefone();
 		Date dataNascimento = receberDataNascimento();
@@ -42,14 +42,14 @@ public class Service {
 				pessoa = new Aluno(nome, telefone, dataNascimento, notaFinal);
 				break;
 			}
-			System.out.println("Deseja inserir uma nota final do curso? S/N");
+			System.out.println(Strings.TEM_NOTA.toString());
 		}
 		this.repository.salvar(pessoa);
-		System.out.println("Cadastro realizado com sucesso!\nID n° " + pessoa);
+		System.out.println(Strings.CADASTRADO.toString() + pessoa);
 	}
 
 	private String receberNome() {
-		System.out.println("Digite o nome: ");
+		System.out.println(Strings.NOME.toString());
 		String nome = sc.nextLine();
 		return nome;
 	}
@@ -59,8 +59,7 @@ public class Service {
 		while (!telefone.matches("[0-9]+")
 				|| telefone.length() > 11
 				|| telefone.length() < 11) {
-			System.out.println("Digite o telefone com DDD."
-					+ "Somente os 11 números (###########): ");
+			System.out.println(Strings.TELEFONE.toString());
 			telefone = sc.nextLine().replaceFirst("0", "");
 		}
 		return telefone;
@@ -75,7 +74,7 @@ public class Service {
 				dataNascimento = sdf.parse(data);
 				continua = false;
 			} catch (Exception e) {
-				System.out.println("Digite a data de nascimento conforme indicado (DD/MM/AAAA): ");
+				System.out.println(Strings.NASCIMENTO.toString());
 				data = sc.next();
 			}
 		return dataNascimento;
@@ -90,7 +89,7 @@ public class Service {
 					&& Double.parseDouble(notaString) <= 10)) {
 				notaDouble = Double.parseDouble(notaString);
 			} else {
-				System.out.println("Digite a nota final do curso: (entre 0 e 10)");
+				System.out.println(Strings.NOTA.toString());
 				notaString = sc.nextLine().replace(",", ".");
 			}
 		}
@@ -100,13 +99,15 @@ public class Service {
 	public void listarCadastros() throws SistemaException {
 		List<Pessoa> pessoas = this.repository.buscarTodos();
 
-		Menu.MOSTRAR();
+		System.out.println(Strings.MENU_CADASTROS.toString());
 		int opcao = sc.nextInt();
 		if (opcao < 0 || opcao > 3) {
-			throw new SistemaException("Opção inválida!!");
+			throw new SistemaException(Strings.OPCAO_INVALIDA.toString());
+		} else if (opcao == 0) {
+			throw new SistemaException(Strings.RETORNANDO_MENU.toString());
 		}
 		if (opcao != 0) {
-			System.out.println("Listagem:");
+			System.out.println(Strings.LISTAGEM.toString());
 		}
 		if (opcao == 1) {
 			pessoas.stream().forEach(pessoa -> System.out.println(pessoa));
@@ -119,9 +120,18 @@ public class Service {
 		}
 		this.atualizarDados(this.receberId());
 	}
+	
+	public int receberId() throws SistemaException {
+		System.out.println(Strings.INFORME_ID.toString());
+		int id = sc.nextInt();
+		if (id == 0) {
+			throw new SistemaException(Strings.RETORNANDO_MENU.toString());
+		}
+		return id;
+	}
 
 	public void pesquisarPorNome() throws SistemaException {
-		System.out.println("Digite o nome ou parte do nome da pessoa ou aluno(a): ");
+		System.out.println(Strings.INFORME_NOME.toString());
 		String fragmentoNome = sc.next().toLowerCase();
 
 		List<Pessoa> pessoas = this.repository.buscarTodos().stream()
@@ -133,20 +143,9 @@ public class Service {
 		} else if (pessoas.size() == 1) {
 			this.atualizarDados(pessoas.get(0).getId());
 		} else if (pessoas.isEmpty()) {
-			throw new SistemaException(
-					"Nenhuma ocorrência com '" + fragmentoNome + "' encontrada!\n"
-							+ "Retornando ao Menu Principal!");
+			throw new SistemaException(Strings.SEM_OCORRENCIA.toString()
+					+ fragmentoNome	+ Strings.SEM_OCORRENCIA_2);
 		}
-	}
-
-	public int receberId() throws SistemaException {
-		System.out.println("Informe o ID para selecionar o cadastro correspondente "
-				+ "(ou '0' para retornar ao menu principal):");
-		int id = sc.nextInt();
-		if (id == 0) {
-			throw new SistemaException("Retornando ao Menu Principal!");
-		}
-		return id;
 	}
 	
 	public void atualizarDados(int id) throws SistemaException {
@@ -156,7 +155,9 @@ public class Service {
 		boolean continua = true;
 		boolean virouAluno = false;
 		while(continua == true) {
-			Menu.ATUALIZAR(pessoa);
+			System.out.println(Strings.CABECALHO_ATUALIZAR.toString()
+					+ pessoa
+					+ Strings.OPCOES_ATUALIZAR);
 			opcaoMenu = sc.nextInt();
 			sc.nextLine();
 			if (opcaoMenu == 1) {
@@ -179,24 +180,24 @@ public class Service {
 				break;
 			} else if (opcaoMenu == 0) {
 				continua = false;
-				throw new SistemaException("Retornando ao Menu Principal!");
+				throw new SistemaException(Strings.RETORNANDO_MENU.toString());
 			} else if (opcaoMenu < 0 || opcaoMenu > 5) {
-				System.out.println("Opção inválida!!");
+				System.out.println(Strings.OPCAO_DESEJADA.toString());
 			}
 			if (virouAluno == true) {
-				System.out.println("Agora " + pessoa.getNome() + " é um(a) aluno(a)!");
+				System.out.println(pessoa.getNome() + Strings.VIROU_ALUNO.toString());
 				virouAluno = false;
 			} else {
-				System.out.println("Atualizado com sucesso!");				
+				System.out.println(Strings.ATUALIZADO.toString());				
 			}
 			pessoa.setDataAlteracao(new Date());			
 		}
-	}
 
+	}
 	private Pessoa verificarIdRepository(int id) throws SistemaException {
 		Pessoa pessoa = this.repository.buscarPorId(id);		
 		if (pessoa == null) {
-			throw new SistemaException("Cadastro não encontrado!");
+			throw new SistemaException(Strings.NAO_ENCONTRADO.toString());
 		}
 		return pessoa;
 	}
@@ -206,7 +207,7 @@ public class Service {
 		this.repository.salvar(aluno);
 		aluno.setDataCadastro(pessoa.getDataCadastro());
 		this.repository.removerPorId(pessoa.getId());
-		System.out.println("Novo(a) aluno(a) cadastrado(a) com sucesso!");
+		System.out.println(Strings.NOVO_ALUNO.toString());
 		return (Aluno) aluno;
 	}
 
@@ -215,15 +216,15 @@ public class Service {
 
 		boolean continua = true;
 		while (continua == true) {
-			System.out.println(
-					"Tem certeza que deseja remover permanentemente o cadastro de " + pessoa.getNome() + "? (S/N)");
+			System.out.println(Strings.REMOVER_CADASTRO.toString()
+					 + pessoa.getNome() + Strings.REMOVER_CADASTRO_2.toString());
 			String remover = sc.next().toUpperCase();
 			if (remover.equals("N")) {
-				System.out.println("Retornando ao Menu Principal!");
+				System.out.println(Strings.RETORNANDO_MENU.toString());
 				continua = false;
 			} else if (remover.equals("S")) {
 				repository.removerPorId(id);
-				System.out.println("Cadastro removido com sucesso!");
+				System.out.println(Strings.REMOVIDO.toString());
 				continua = false;
 			}
 		}

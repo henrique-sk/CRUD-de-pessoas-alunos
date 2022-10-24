@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 import exception.SistemaException;
 import service.Service;
-import util.Menu;
+import util.Strings;
 
 public class Main {
 
@@ -14,7 +14,7 @@ public class Main {
 		boolean continua = true;
 		do {
 			try {
-				Menu.PRINCIPAL();
+				System.out.println(Strings.MENU_PRINCIPAL.toString());
 				int opcaoMenu = sc.nextInt();
 				sc.nextLine();
 				switch (opcaoMenu) {
@@ -31,17 +31,17 @@ public class Main {
 					service.atualizarDados(service.receberId());
 					break;
 				case 0:
-					System.out.println("Obrigado por utilizar nosso sistema. Até logo!");
+					System.out.println(Strings.ENCERRAMENTO.toString());
 					continua = false;
 					break;
 				default:
-					System.out.println("Alternativa inválida. Tente novamente!");
+					System.out.println(Strings.OPCAO_INVALIDA.toString());
 					break;
 				}
 			} catch (SistemaException e) {
 				System.out.println(e.getMessage());
 			} catch (InputMismatchException e) {
-				System.out.println("Opção inválida!!");
+				System.out.println(Strings.OPCAO_INVALIDA.toString());
 				sc.next();
 			} finally {
 				Thread.sleep(1500l);
