@@ -1,6 +1,8 @@
 # CRUD de pessoas/alunos
 
 Este projeto foi proposto ao final da Formação Java Alfamídia, em parceria com o +PraTi, ministrada durante 2 meses entre Julho e Setembro de 2022. Sendo pré-requisito para o processo de incubação nas empresas +praTi.
+- [Demonstração em vídeo (duração: 7:28)](https://youtu.be/gA3Q9JSD2D0)
+---
 
 ## Proposta do Projeto
 Criar um CRUD (Create, Read, Update, Delete) de pessoas/alunos no terminal usando somente Java:
